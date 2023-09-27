@@ -1,14 +1,17 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { userLogin } from "../api/user";
 
 const Login = () => {
+  const nav = useNavigate();
   const [userId, setUserId] = useState("");
   const [userPw, setUserPw] = useState("");
 
-  const submitLogin = (userId, userPw) => {
-    userLogin(userId, userPw);
+  const submitLogin = (userId, userPw, nav) => {
+    if (userId.trim().length === 0) return alert("아이디를 입력하세요");
+    if (userPw.trim().length === 0) return alert("비밀번호를 입력하세요");
+    userLogin(userId, userPw, nav);
   };
   return (
     <PageContainer>
@@ -32,7 +35,7 @@ const Login = () => {
         <ButtonBox>
           <RegularButton
             onClick={() => {
-              submitLogin(userId, userPw);
+              submitLogin(userId, userPw, nav);
             }}
           >
             로그인

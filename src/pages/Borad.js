@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import List from "../components/List";
-import Button from "../components/Button";
 import { Link } from "react-router-dom";
 
 const Borad = () => {
@@ -11,10 +10,10 @@ const Borad = () => {
         <PageTitle>게시판</PageTitle>
         <RightArea>
           <Link to="/">
-            <Button title="로그아웃" />
+            <Button>로그아웃</Button>
           </Link>
           <Link to="/write">
-            <Button title="글쓰기" />
+            <Button>글쓰기</Button>
           </Link>
         </RightArea>
       </TitlerArea>
@@ -24,6 +23,20 @@ const Borad = () => {
     </PageContainer>
   );
 };
+const Button = styled.div`
+  cursor: pointer;
+  width: fit-content;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: #d0d0d0;
+  font-family: Pretendard;
+  font-size: 0.75rem;
+  &:hover {
+    color: white;
+    background-color: gray;
+  }
+`;
 const PageContainer = styled.div`
   display: flex;
   flex-direction: column;

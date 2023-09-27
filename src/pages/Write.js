@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import Button from "../components/Button";
 import { Link } from "react-router-dom";
 
 const Write = () => {
@@ -10,10 +9,10 @@ const Write = () => {
         <PageTitle>글쓰기</PageTitle>
         <RightArea>
           <Link to="/board">
-            <Button title="취소" />
+            <Button>취소</Button>
           </Link>
           <Link to="/write">
-            <Button title="등록하기" />
+            <Button>등록하기</Button>
           </Link>
         </RightArea>
       </TitlerArea>
@@ -21,6 +20,21 @@ const Write = () => {
     </PageContainer>
   );
 };
+
+const Button = styled.div`
+  cursor: pointer;
+  width: fit-content;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: #d0d0d0;
+  font-family: Pretendard;
+  font-size: 0.75rem;
+  &:hover {
+    color: white;
+    background-color: gray;
+  }
+`;
 const PageContainer = styled.div`
   display: flex;
   flex-direction: column;
