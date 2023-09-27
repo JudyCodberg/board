@@ -1,9 +1,6 @@
 import styled from "styled-components";
-export interface Props {
-  title: string;
-}
-const Button = (props: Props) => {
-  const { title } = props;
+
+const Button = ({ title }) => {
   return <RegularButton>{title}</RegularButton>;
 };
 

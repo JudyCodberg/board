@@ -1,7 +1,16 @@
-import React from "react";
+import api from "./index";
 
-const user = () => {
-  return <div>user</div>;
+export const userLogin = (userId, userPw) => {
+  api
+    .post("user/login", {
+      id: userId,
+      password: userPw,
+    })
+    .then((res) => {
+      if (res.status === 200) {
+        console.log(res.status);
+        return true;
+      }
+    })
+    .catch((err) => err);
 };
-
-export default user;

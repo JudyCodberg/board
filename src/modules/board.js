@@ -6,7 +6,7 @@ const init = {
 
 export const getPostAll = (pageNum, numbers) => {
   return async (dispatch, getState) => {
-    const post = await axios.get("/board/list", { params: { page: pageNum, num: numbers } });
+    const post = await axios.get("/board/list", { params: { page: pageNum, num: 10 } });
     const { data } = post;
     dispatch({ type: "GET_POST", payload: data.data });
   };
