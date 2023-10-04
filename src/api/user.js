@@ -65,3 +65,47 @@ export const userJoin = (id, name, password, question, answer, nav) => {
       return false;
     });
 };
+
+export const checkAnswer = (id, question, answer, nav) => {
+  return api
+    .post("user/checkanswer", {
+      account: id,
+      question: Number(question),
+      answer: answer,
+    })
+    .then((res) => {
+      if (res.status === 200) {
+        const data = res.data.data;
+        nav("/setpw", {
+          state: {
+            account: data.account,
+            token: data.token,
+          },
+        });
+        return data;
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      return false;
+    });
+};
+
+export const saveNewPassword = (userToken, newPassword, account, nav) => {
+  api
+    .post("user/newPassword", {
+      userToken: userToken,
+      password: newPassword,
+      account: account,
+    })
+    .then((res) => {
+      if (res.status === 200) {
+        nav("/");
+        return alert("비밀번호가 변경되었습니다");
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      return false;
+    });
+};

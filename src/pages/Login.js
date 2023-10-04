@@ -44,6 +44,9 @@ const Login = () => {
             <RegularButton>회원가입</RegularButton>
           </Link>
         </ButtonBox>
+        <Link to="/findpassword">
+          <LinkedText>비밀번호찾기</LinkedText>
+        </Link>
       </PageBox>
     </PageContainer>
   );
@@ -104,5 +107,10 @@ const RegularButton = styled.div`
     color: white;
     background-color: gray;
   }
+`;
+const LinkedText = styled.p`
+  padding: 1rem;
+  text-decoration: underline;
+  font-size: 0.75rem;
 `;
 export default Login;

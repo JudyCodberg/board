@@ -12,7 +12,7 @@ const QUESTION = [
 const Join = () => {
   const pwRef = useRef();
   const nav = useNavigate();
-  const [questionNum, setQuestionNum] = useState(1);
+
   const [userValidate, setUserValidate] = useState({
     id: false,
     name: false,
@@ -23,6 +23,7 @@ const Join = () => {
     checkOverlapName: false,
     checkOverlapPw: false,
   });
+
   const [userInputs, setUserInputs] = useState({
     id: "",
     name: "",
