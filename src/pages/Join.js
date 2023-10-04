@@ -1,60 +1,129 @@
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { useState } from "react";
-import { checkId, checkName } from "../api/user";
-import { regId, regPw } from "../regExp";
+import { useRef, useState } from "react";
+import { checkId, checkName, userJoin } from "../api/user";
 
 const QUESTION = [
   { id: 1, question: "어릴 때 살던 동네는?" },
   { id: 2, question: "가장 아끼는 보물 1호는?" },
   { id: 3, question: "기억에 남는 장소는?" },
 ];
+
 const Join = () => {
+  const pwRef = useRef();
   const nav = useNavigate();
-  const [userId, setUserId] = useState("");
-  const [userName, setUserName] = useState("");
-  const [userPw, setUserPw] = useState("");
-  const [checkPw, setCheckPw] = useState("");
-  const [checkId, setCheckId] = useState("");
-  const [userAnswer, setUserAnswer] = useState("");
-  const [isSame, setIsSame] = useState(0);
   const [questionNum, setQuestionNum] = useState(1);
+  const [userValidate, setUserValidate] = useState({
+    id: false,
+    name: false,
+    password: false,
+    question: true,
+    answer: false,
+    checkOverlapId: false,
+    checkOverlapName: false,
+    checkOverlapPw: false,
+  });
+  const [userInputs, setUserInputs] = useState({
+    id: "",
+    name: "",
+    password: "",
+    question: "",
+    answer: "",
+  });
+
+  // 정규식
+  const regs = {
+    id: /^[a-z]+[a-z0-9]{5,19}$/,
+    password: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}/,
+    name: /^[가-힣a-zA-Z]{2,8}$/,
+  };
+  const checkValidate = (regExp, value) => regExp.test(value);
 
   // 아이디/닉네임 중복체크
-  const checkIdValidate = (userId) => {
-    if (userId.trim().length === 0) return alert("아이디를 입력하세요");
-    checkId(userId);
+  const checkIdValidate = async (userId) => {
+    if (userId.trim().length === 0) {
+      alert("아이디를 입력하세요");
+      return false;
+    }
+    if (checkValidate(regs.id, userId) !== true) {
+      alert("영문자로 시작하는 영문자 또는 숫자 6~20자");
+      return false;
+    }
+    const result = await checkId(userId);
+    if (result === true) {
+      setUserValidate({ ...userValidate, checkOverlapId: result });
+      alert("사용 가능한 아이디입니다");
+    }
+    return setUserValidate({ ...userValidate, checkOverlapId: result });
   };
-  const checkNameValidate = (userName) => {
-    if (userName.trim().length === 0) return alert("닉네임을 입력하세요");
-    checkName(userName);
+
+  const checkNameValidate = async (userName) => {
+    if (userName.trim().length === 0) {
+      alert("닉네임을 입력하세요");
+      return false;
+    }
+    if (checkValidate(regs.name, userName) !== true) {
+      alert("한글 또는 영문자 2~8자");
+      return false;
+    }
+    const result = await checkName(userName);
+    if (result === true) {
+      setUserValidate({ ...userValidate, checkOverlapName: result });
+      alert("사용 가능한 닉네임입니다");
+    }
+    return setUserValidate({ ...userValidate, checkOverlapName: result });
   };
-  // 정규식 검사
-  const handleId = (value) => {
-    if (regId(value) === false) {
-      return console.log("영문자로 시작하는 영문자 또는 숫자 6~20자");
-    } else return console.log("정규식 검사 통과");
+
+  const userInputsHandler = (e) => {
+    const { name, value } = e.target;
+    setUserInputs({ ...userInputs, [name]: value });
+    setUserValidate({
+      ...userValidate,
+      [name]: checkValidate(regs[name], value),
+    });
   };
-  const handlePw = (value) => {
-    if (regPw(value) === false) {
-      return console.log("8-16자 영문(대/소문자), 특수문자, 숫자 최소 한 가지씩");
-    } else return console.log("정규식 검사 통과");
-  };
+
   // 비밀번호 확인
   const checkPwValidate = (value) => {
-    if (userPw == value) {
-      setIsSame(1);
+    let result;
+    if (userInputs.password) {
+      const comparePw = userInputs.password;
+      if (comparePw === value) {
+        pwRef.current.style.border = "1px solid black";
+        result = true;
+      } else {
+        pwRef.current.style.border = "2px solid red";
+        result = false;
+      }
+      setUserValidate({ ...userValidate, checkOverlapPw: result });
     } else {
-      setIsSame(0);
+      setUserValidate({ ...userValidate, checkOverlapPw: false });
     }
   };
-  // 비밀번호 찾기
-  const selectQuetion = (e) => {
-    setQuestionNum(e.target.value);
+
+  const checkQnA = (e) => {
+    const { value, name } = e.target;
+    if (value.length !== 0) {
+      setUserInputs({ ...userInputs, [name]: value });
+      setUserValidate({ ...userValidate, [name]: true });
+    } else return setUserValidate({ ...userValidate, [name]: false });
   };
 
   // 가입하기 눌렀을 때
-  const submitJoin = () => {};
+  const submitJoin = () => {
+    const { id, name, password, question, answer } = userInputs;
+    if (userValidate.checkOverlapId === false || userValidate.checkOverlapName === false)
+      return alert("중복 검사는 필수입니다");
+    if (userValidate.id === false || userValidate.name === false) return alert("유효하지 않은 값입니다");
+    if (userValidate.checkOverlapPw === false || userValidate.password === false)
+      return alert("비밀번호를 다시 확인해주세요");
+    if (userValidate.answer === false) {
+      return alert("답변을 입력하세요");
+    }
+    const isAllTrue = Object.values(userValidate).every((value) => value);
+    if (isAllTrue) return userJoin(id, name, password, question, answer, nav);
+  };
+
   return (
     <PageContainer>
       <PageBox>
@@ -64,45 +133,49 @@ const Join = () => {
             <InputTitle>아이디</InputTitle>
             <Button
               onClick={() => {
-                checkIdValidate(userId);
+                checkIdValidate(userInputs.id);
               }}
             >
               중복확인
             </Button>
           </TitleBox>
           <InputBox
+            name="id"
             onChange={(e) => {
-              handleId(e.target.value);
+              userInputsHandler(e);
             }}
-          />{" "}
-          <CheckResult>영문자로 시작하는 영문자 또는 숫자 6~20자</CheckResult>
+          />
+          <CheckResult>영어로 시작, 영어 및 숫자 6~20자</CheckResult>
           <TitleBox>
             <InputTitle>닉네임</InputTitle>
             <Button
               onClick={() => {
-                checkNameValidate(userName);
+                checkNameValidate(userInputs.name);
               }}
             >
               중복확인
             </Button>
           </TitleBox>
           <InputBox
+            name="name"
             onChange={(e) => {
-              setUserName(e.target.value);
+              userInputsHandler(e);
             }}
           />
+          <CheckResult>한글 또는 영문자 2~8자(자음만 입력 불가능)</CheckResult>
           <InputTitle>비밀번호</InputTitle>
           <InputPassword
             type="password"
             maxLength={16}
+            name="password"
             onChange={(e) => {
-              handlePw(e.target.value);
+              userInputsHandler(e);
             }}
           />
-          <CheckResult>8-16자 영문, 특수문자, 숫자 최소 한 가지씩</CheckResult>
+          <CheckResult>대문자/소문자/숫자/특수문자 반드시 하나 이상 포함(최소 8자)</CheckResult>
           <InputTitle>비밀번호 확인</InputTitle>
           <CheckPassword
-            validate={isSame}
+            ref={pwRef}
             type="password"
             maxLength={16}
             onChange={(e) => {
@@ -110,7 +183,12 @@ const Join = () => {
             }}
           />
           <InputTitle>비밀번호 찾기 질문</InputTitle>
-          <QuestionBox onChange={selectQuetion}>
+          <QuestionBox
+            name="question"
+            onChange={(e) => {
+              checkQnA(e);
+            }}
+          >
             {QUESTION.map((item) => (
               <QuestionTitle key={item.id} value={item.id}>
                 {item.question}
@@ -118,20 +196,19 @@ const Join = () => {
             ))}
           </QuestionBox>
           <InputBox
+            name="answer"
             onChange={(e) => {
-              setUserAnswer(e.target.value);
+              checkQnA(e);
             }}
           />
         </Wrapper>
-        <Link to="/board">
-          <Button
-            onClick={() => {
-              submitJoin();
-            }}
-          >
-            가입하기
-          </Button>
-        </Link>
+        <Button
+          onClick={() => {
+            submitJoin(userInputs, nav);
+          }}
+        >
+          가입하기
+        </Button>
       </PageBox>
     </PageContainer>
   );
@@ -199,7 +276,7 @@ const CheckPassword = styled.input`
   width: 100%;
   height: 1.5rem;
   font-family: Pretendard;
-  border: ${(props) => (props.validate == 1 ? "1px solid black" : "1px solid red")};
+  /* border: ${(props) => (props.validate == 1 ? "1px solid black" : "1px solid red")}; */
 `;
 const CheckResult = styled.p`
   font-size: 0.75rem;
