@@ -1,22 +1,25 @@
 /* eslint-disable */
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { getPostAll } from "../modules/board";
-import { getDetail } from "../api/board";
+import { getBoardList, getDetail } from "../api/board";
 import { useNavigate } from "react-router-dom";
+import Pagination from "./Pagination";
 
 const boardTitles = ["번호", "제목", "댓글수", "조회수", "작성자", "작성일"];
 const List = () => {
   const nav = useNavigate();
   const dispatch = useDispatch();
 
+  const [pageNum, setPageNum] = useState(1);
+  const [countNum, setCountNum] = useState(10);
+
   const listData = useSelector((state) => state.board.lists);
+  const articleNum = useSelector((state) => state.board.counts);
 
   useEffect(() => {
-    const pageNum = 1;
-    const numbers = 5;
-    dispatch(getPostAll(pageNum, numbers));
+    dispatch(getPostAll(pageNum, countNum));
   }, []);
 
   return (
@@ -30,7 +33,7 @@ const List = () => {
         {listData.map((item, idx) => (
           <Lists key={idx}>
             <ListRows key={item.board_id}>
-              <ListItems>{item.board_id}</ListItems>
+              <ListItems>{articleNum}</ListItems>
               <ListItemsTitle
                 onClick={() => {
                   getDetail(item.board_id, nav);
@@ -46,6 +49,7 @@ const List = () => {
           </Lists>
         ))}
       </ListBody>
+      <Pagination />
     </ListWrap>
   );
 };

@@ -4,11 +4,11 @@ const init = {
   lists: [],
 };
 
-export const getPostAll = (pageNum, numbers) => {
+export const getPostAll = (pageNum, countNum) => {
   return async (dispatch, getState) => {
-    const post = await axios.get("/board/list", { params: { page: pageNum, num: numbers } });
-    const { data } = post;
-    dispatch({ type: "GET_POST", payload: data.data });
+    const post = await axios.get("/board/list", { params: { page: pageNum, num: countNum } });
+    const { getList, boardCountAll } = post.data.data;
+    dispatch({ type: "GET_POST", payload: { getList, boardCountAll } });
   };
 };
 
@@ -18,7 +18,8 @@ export default function board(state = init, action) {
     case "GET_POST": {
       return {
         ...state,
-        lists: [...payload],
+        lists: [...payload.getList],
+        counts: payload.boardCountAll,
       };
     }
 

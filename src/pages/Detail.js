@@ -1,7 +1,9 @@
+/* eslint-disable */
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useLocation, useNavigate } from "react-router-dom";
 import { handleDelete } from "../api/board";
+import Comments from "../components/Comments";
 
 const Detail = () => {
   const nav = useNavigate();
@@ -13,7 +15,7 @@ const Detail = () => {
   const [isDate, setIsDate] = useState("");
 
   useEffect(() => {
-    setIsDate(new Date(data.createdAt).toLocaleString());
+    setIsDate(new Date(data.updatedAt).toLocaleString());
   }, [data.createdAt]);
 
   // TODO: 더미데이터, 세션에 저장된 유저 정보 가져와서 비교
@@ -53,6 +55,7 @@ const Detail = () => {
       ) : (
         <></>
       )}
+      <Comments boardId={boardId} />
     </PageContainer>
   );
 };
@@ -76,8 +79,8 @@ const PageContainer = styled.div`
   align-items: center;
   justify-content: center;
   gap: 1rem;
+  padding: 2rem 0;
   width: 100vw;
-  height: 100vh;
   font-family: Pretendard;
 `;
 const PageBottom = styled.div`
@@ -99,7 +102,6 @@ const ArticleDetails = styled.div`
   gap: 1rem;
   width: 70%;
   text-align: left;
-  font-size: 0.75rem;
 `;
 const PageTitle = styled.p`
   font-weight: 700;
@@ -107,7 +109,6 @@ const PageTitle = styled.p`
 `;
 const ContentArea = styled.div`
   width: 70%;
-  height: 70%;
   padding: 1rem;
   border: 1px solid black;
   line-height: 1.25rem;

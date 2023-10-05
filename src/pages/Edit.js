@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -19,7 +20,7 @@ const Edit = () => {
       writer: data.writer,
     });
     setIsDate(new Date(data.createdAt).toLocaleString());
-  }, [data.createdAt]);
+  }, []);
 
   const [isDate, setIsDate] = useState("");
   const [userInputs, setUserInputs] = useState({
