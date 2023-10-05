@@ -13,7 +13,7 @@ export const userLogin = (userId, userPw, nav) => {
       }
     })
     .catch((err) => {
-      alert("로그인 실패");
+      alert("아이디 또는 비밀번호를 확인하세요");
     });
 };
 

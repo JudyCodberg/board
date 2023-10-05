@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useRef, useState } from "react";
 import { checkId, checkName, userJoin } from "../api/user";
@@ -277,7 +277,6 @@ const CheckPassword = styled.input`
   width: 100%;
   height: 1.5rem;
   font-family: Pretendard;
-  /* border: ${(props) => (props.validate == 1 ? "1px solid black" : "1px solid red")}; */
 `;
 const CheckResult = styled.p`
   font-size: 0.75rem;

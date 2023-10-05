@@ -1,22 +1,65 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { writeContent } from "../api/board";
 
 const Write = () => {
+  const nav = useNavigate();
+  const [userInputs, setUserInputs] = useState({
+    title: "",
+    content: "",
+  });
+
+  // TODO: 나중에 리덕스로 연결, 더미데이터
+  const writer = "judy";
+
+  const handleInput = (e) => {
+    const { name, value } = e.target;
+    setUserInputs({ ...userInputs, [name]: value });
+  };
+
+  const submitArticle = () => {
+    const title = userInputs.title;
+    const content = userInputs.content;
+    if (title.length !== 0 && content.length !== 0 && writer !== undefined) {
+      return writeContent(title, content, writer, nav);
+    }
+    return alert("제목과 내용을 입력하세요");
+  };
+
   return (
     <PageContainer>
-      <TitlerArea>
+      <PageHeader>
         <PageTitle>글쓰기</PageTitle>
         <RightArea>
           <Link to="/board">
             <Button>취소</Button>
           </Link>
           <Link to="/write">
-            <Button>등록하기</Button>
+            <Button
+              onClick={() => {
+                submitArticle();
+              }}
+            >
+              등록하기
+            </Button>
           </Link>
         </RightArea>
-      </TitlerArea>
-      <BoardContainer></BoardContainer>
+      </PageHeader>
+      <WriteTitleArea
+        name="title"
+        placeholder="제목을 입력하세요"
+        onChange={(e) => {
+          handleInput(e);
+        }}
+      />
+      <WriteContentArea
+        name="content"
+        placeholder="내용을 입력하세요"
+        onChange={(e) => {
+          handleInput(e);
+        }}
+      />
     </PageContainer>
   );
 };
@@ -40,11 +83,12 @@ const PageContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 1rem;
   width: 100vw;
   height: 100vh;
   font-family: Pretendard;
 `;
-const TitlerArea = styled.div`
+const PageHeader = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -55,11 +99,14 @@ const RightArea = styled.div`
   gap: 0.5rem;
 `;
 const PageTitle = styled.p`
-  margin: 1rem 0;
   font-weight: 700;
   font-size: 2rem;
 `;
-const BoardContainer = styled.textarea`
+const WriteTitleArea = styled.input`
+  width: 70%;
+  border: 1px solid black;
+`;
+const WriteContentArea = styled.textarea`
   width: 70%;
   height: 70%;
   border: 1px solid black;
