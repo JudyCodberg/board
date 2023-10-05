@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useLocation, useNavigate } from "react-router-dom";
 import { handleEdit } from "../api/board";
+import { useSelector } from "react-redux";
 
 const Edit = () => {
   const nav = useNavigate();
@@ -10,8 +11,7 @@ const Edit = () => {
 
   const data = location.state.data;
   const boardId = data.board_id;
-  // TODO: 더미데이터, 세션에 저장된 유저 정보 가져와서 비교
-  const loginedUser = "judy";
+  const loginedUser = useSelector((state) => state.user.username);
 
   useEffect(() => {
     setUserInputs({

@@ -1,12 +1,13 @@
+/* eslint-disable */
 import React, { useEffect, useState } from "react";
-import { getComment, handleDelete, handleEdit, writeContent } from "../api/comment";
+import { getComment, handleDelete, writeContent } from "../api/comment";
 import styled from "styled-components";
 import EditComment from "./EditComment";
+import { useSelector } from "react-redux";
 
 const Comments = (boardId) => {
   const id = boardId.boardId;
-  // TODO: 더미데이터
-  const nickname = "judy";
+  const nickname = useSelector((state) => state.user.username);
 
   const [data, setData] = useState([]);
   const [content, setContent] = useState("");
@@ -15,7 +16,7 @@ const Comments = (boardId) => {
 
   const getData = async () => {
     const commentData = await getComment(id);
-    if (commentData === null) {
+    if (commentData === false) {
       return [];
     }
     return setData(commentData);
@@ -54,36 +55,41 @@ const Comments = (boardId) => {
           ) : (
             <CommentContent>{item.comment_content}</CommentContent>
           )}
-
-          {isEdit && clickedId === item.comment_id ? (
-            <ButtonBox>
-              <Button
-                onClick={() => {
-                  setEdit(false);
-                }}
-              >
-                취소
-              </Button>
-            </ButtonBox>
+          {nickname === item.nickname ? (
+            <>
+              {isEdit && clickedId === item.comment_id ? (
+                <ButtonBox>
+                  <Button
+                    onClick={() => {
+                      setEdit(false);
+                    }}
+                  >
+                    취소
+                  </Button>
+                </ButtonBox>
+              ) : (
+                <ButtonBox>
+                  <Button
+                    onClick={() => {
+                      setClickedId(item.comment_id);
+                      const id = item.comment_id;
+                      setEdit(true);
+                    }}
+                  >
+                    수정
+                  </Button>
+                  <Button
+                    onClick={() => {
+                      handleDelete(item.comment_id);
+                    }}
+                  >
+                    삭제
+                  </Button>
+                </ButtonBox>
+              )}
+            </>
           ) : (
-            <ButtonBox>
-              <Button
-                onClick={() => {
-                  setClickedId(item.comment_id);
-                  const id = item.comment_id;
-                  setEdit(true);
-                }}
-              >
-                수정
-              </Button>
-              <Button
-                onClick={() => {
-                  handleDelete(item.comment_id);
-                }}
-              >
-                삭제
-              </Button>
-            </ButtonBox>
+            <></>
           )}
         </CommentBox>
       ))}

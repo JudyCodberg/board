@@ -12,15 +12,16 @@ const List = () => {
   const nav = useNavigate();
   const dispatch = useDispatch();
 
+  const SHOW_ARTICLE_NUM = 17;
   const [pageNum, setPageNum] = useState(1);
-  const [countNum, setCountNum] = useState(10);
 
   const listData = useSelector((state) => state.board.lists);
   const articleNum = useSelector((state) => state.board.counts);
 
+  const lastPage = Math.ceil(articleNum / SHOW_ARTICLE_NUM);
   useEffect(() => {
-    dispatch(getPostAll(pageNum, countNum));
-  }, []);
+    dispatch(getPostAll(pageNum, SHOW_ARTICLE_NUM));
+  }, [pageNum]);
 
   return (
     <ListWrap>
@@ -33,7 +34,7 @@ const List = () => {
         {listData.map((item, idx) => (
           <Lists key={idx}>
             <ListRows key={item.board_id}>
-              <ListItems>{articleNum}</ListItems>
+              <ListItems>{item.board_id}</ListItems>
               <ListItemsTitle
                 onClick={() => {
                   getDetail(item.board_id, nav);
@@ -49,12 +50,15 @@ const List = () => {
           </Lists>
         ))}
       </ListBody>
-      <Pagination />
+      <Pagination lastPage={lastPage} pageNum={pageNum} setPageNum={setPageNum} countNum={SHOW_ARTICLE_NUM} />
     </ListWrap>
   );
 };
 const Lists = styled.div``;
-const ListWrap = styled.div``;
+const ListWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 const ListHeader = styled.ul`
   display: flex;
   align-items: center;
@@ -70,9 +74,9 @@ const ListBody = styled.div`
   padding: 1rem 0;
 `;
 const ListRows = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  justify-items: start;
   padding: 0.5rem 0;
 `;
 const ListItems = styled.div`

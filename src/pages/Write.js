@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import { writeContent } from "../api/board";
+import { useSelector } from "react-redux";
 
 const Write = () => {
   const nav = useNavigate();
@@ -10,8 +11,7 @@ const Write = () => {
     content: "",
   });
 
-  // TODO: 나중에 리덕스로 연결, 더미데이터
-  const writer = "judy";
+  const writer = useSelector((state) => state.user.username);
 
   const handleInput = (e) => {
     const { name, value } = e.target;

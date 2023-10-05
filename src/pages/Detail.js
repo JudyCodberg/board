@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { useLocation, useNavigate } from "react-router-dom";
 import { handleDelete } from "../api/board";
 import Comments from "../components/Comments";
+import { useSelector } from "react-redux";
 
 const Detail = () => {
   const nav = useNavigate();
@@ -18,8 +19,7 @@ const Detail = () => {
     setIsDate(new Date(data.updatedAt).toLocaleString());
   }, [data.createdAt]);
 
-  // TODO: 더미데이터, 세션에 저장된 유저 정보 가져와서 비교
-  const loginedUser = "judy";
+  const loginedUser = useSelector((state) => state.user.username);
 
   return (
     <PageContainer>

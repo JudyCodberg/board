@@ -1,17 +1,21 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { userLogin } from "../api/user";
+// import { userLogin } from "../api/user";
+import { useDispatch } from "react-redux";
+import { login } from "../modules/user";
 
 const Login = () => {
   const nav = useNavigate();
+  const dispatch = useDispatch();
+
   const [userId, setUserId] = useState("");
   const [userPw, setUserPw] = useState("");
 
   const submitLogin = (userId, userPw, nav) => {
     if (userId.trim().length === 0) return alert("아이디를 입력하세요");
     if (userPw.trim().length === 0) return alert("비밀번호를 입력하세요");
-    userLogin(userId, userPw, nav);
+    dispatch(login(userId, userPw, nav));
   };
   return (
     <PageContainer>

@@ -4,9 +4,9 @@ const init = {
   lists: [],
 };
 
-export const getPostAll = (pageNum, countNum) => {
+export const getPostAll = (pageNum, SHOW_ARTICLE_NUM) => {
   return async (dispatch, getState) => {
-    const post = await axios.get("/board/list", { params: { page: pageNum, num: countNum } });
+    const post = await axios.get("/board/list", { params: { page: pageNum, num: SHOW_ARTICLE_NUM } });
     const { getList, boardCountAll } = post.data.data;
     dispatch({ type: "GET_POST", payload: { getList, boardCountAll } });
   };

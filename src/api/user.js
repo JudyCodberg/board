@@ -1,21 +1,21 @@
 import api from "./index";
 
-export const userLogin = (userId, userPw, nav) => {
-  api
-    .post("user/login", {
-      id: userId,
-      password: userPw,
-    })
-    .then((res) => {
-      if (res.status === 200) {
-        nav("/board");
-        return alert("로그인 성공");
-      }
-    })
-    .catch((err) => {
-      alert("아이디 또는 비밀번호를 확인하세요");
-    });
-};
+// export const userLogin = (userId, userPw, nav) => {
+//   api
+//     .post("user/login", {
+//       id: userId,
+//       password: userPw,
+//     })
+//     .then((res) => {
+//       if (res.status === 200) {
+//         nav("/board");
+//         return alert("로그인 성공");
+//       }
+//     })
+//     .catch((err) => {
+//       alert("아이디 또는 비밀번호를 확인하세요");
+//     });
+// };
 
 export const checkId = (userId) => {
   return api

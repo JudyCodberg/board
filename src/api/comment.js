@@ -10,7 +10,7 @@ export const getComment = (id) => {
       }
     })
     .catch((err) => {
-      return err.response.data.data;
+      return false;
     });
 };
 
@@ -27,7 +27,6 @@ export const writeContent = (id, content, nickname) => {
       }
     })
     .catch((err) => {
-      console.log(err);
       return false;
     });
 };
