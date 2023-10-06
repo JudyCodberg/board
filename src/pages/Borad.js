@@ -1,17 +1,22 @@
 import React from "react";
 import styled from "styled-components";
 import List from "../components/List";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Borad = () => {
+  const nav = useNavigate();
   return (
     <PageContainer>
       <TitlerArea>
         <PageTitle>게시판</PageTitle>
         <RightArea>
-          <Link to="/">
-            <Button>로그아웃</Button>
-          </Link>
+          <Button
+            onClick={() => {
+              nav("/");
+            }}
+          >
+            로그아웃
+          </Button>
           <Link to="/write">
             <Button>글쓰기</Button>
           </Link>

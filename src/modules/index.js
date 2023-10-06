@@ -8,11 +8,11 @@ const rootReducer = combineReducers({ user });
 
 const persistConfig = {
   key: "root",
-  storage: storage,
+  storage,
 };
 
-const perReducer = persistReducer(persistConfig, rootReducer);
+const persistor = persistReducer(persistConfig, rootReducer);
 
-const store = createStore(perReducer, applyMiddleware(thunk));
+const store = createStore(persistor, applyMiddleware(thunk));
 
 export default store;

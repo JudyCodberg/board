@@ -1,4 +1,5 @@
 import axios from "axios";
+
 const LOGIN = "login/LOGIN";
 
 export const login = (userId, userPw, nav) => {
@@ -18,9 +19,11 @@ export const login = (userId, userPw, nav) => {
   };
 };
 const init = {
-  validToken: "",
-  userId: "",
-  username: "",
+  // 로컬스토리지에 값이 있으면 넣고 || 아니면 ""
+  username:
+    JSON.parse(localStorage.getItem("persist:root")) !== undefined
+      ? JSON.parse(JSON.parse(localStorage.getItem("persist:root")).user).username
+      : "",
 };
 
 export default function user(state = init, action) {
@@ -29,9 +32,6 @@ export default function user(state = init, action) {
     case LOGIN:
       return {
         ...state,
-        // validToken: payload.validToken,
-        // userId: payload.userId,
-        // username: payload.username,
         username: payload,
       };
     default:
