@@ -1,5 +1,43 @@
 import api from "./index";
 
+export const getPostAll = (pageNum, SHOW_ARTICLE_NUM) => {
+  return api
+    .get("board/list", { params: { page: pageNum, num: SHOW_ARTICLE_NUM } })
+    .then((res) => {
+      if (res.status === 200) {
+        const searchData = res.data.data.getList;
+        const countNum = res.data.data.boardCountAll;
+        return { searchData, countNum };
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+export const getSearchAll = (pageNum, SHOW_ARTICLE_NUM, target, value) => {
+  return api
+    .get("board/list", {
+      params: {
+        page: pageNum,
+        num: SHOW_ARTICLE_NUM,
+        target: target,
+        value: value,
+      },
+    })
+    .then((res) => {
+      if (res.status === 200) {
+        const searchData = res.data.data.searchData;
+        const countNum = res.data.data.countNum;
+        return { searchData, countNum };
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      alert("검색 결과가 없습니다");
+    });
+};
+
 export const getDetail = (id, nav) => {
   api
     .get(`board/list/${id}`, { params: { id: id } })

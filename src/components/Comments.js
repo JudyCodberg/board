@@ -1,13 +1,15 @@
 /* eslint-disable */
 import React, { useEffect, useState } from "react";
-import { getComment, handleDelete, writeContent } from "../api/comment";
+import { getComment, handleDelete, writeContent } from "../api/comment_api";
 import styled from "styled-components";
 import EditComment from "./EditComment";
 import { useSelector } from "react-redux";
 
 const Comments = (boardId) => {
   const id = boardId.boardId;
+
   const nickname = useSelector((state) => state.user.username);
+  console.log(nickname);
 
   const [data, setData] = useState([]);
   const [content, setContent] = useState("");
@@ -24,7 +26,7 @@ const Comments = (boardId) => {
 
   useEffect(() => {
     getData();
-  }, [data]);
+  }, []);
 
   return (
     <CommentArea>
@@ -47,8 +49,8 @@ const Comments = (boardId) => {
         <CommentBox key={item.comment_id}>
           <CommentInfo>
             <CommentWriter>{item.nickname}</CommentWriter>
-            <CommentAt>{item.updatedAt}</CommentAt>
-            {/* <CommentAt>{new Date(item.updatedAt).toLocaleString()}</CommentAt> */}
+            {/* <CommentAt>{item.updatedAt}</CommentAt> */}
+            <CommentAt>{new Date(item.updatedAt).toLocaleString()}</CommentAt>
           </CommentInfo>
           {isEdit && clickedId === item.comment_id ? (
             <EditComment value={item.comment_content} id={item.comment_id} nickname={item.nickname} />

@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useRef, useState } from "react";
-import { checkId, checkName, userJoin } from "../api/user";
+import { checkId, checkName, userJoin } from "../api/user_api";
 
 const QUESTION = [
   { id: 1, question: "어릴 때 살던 동네는?" },

@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useLocation, useNavigate } from "react-router-dom";
-import { handleEdit } from "../api/board";
+import { handleEdit } from "../api/board_api";
 import { useSelector } from "react-redux";
 
 const Edit = () => {

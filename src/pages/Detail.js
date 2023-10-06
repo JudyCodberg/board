@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useLocation, useNavigate } from "react-router-dom";
-import { handleDelete } from "../api/board";
+import { handleDelete } from "../api/board_api";
 import Comments from "../components/Comments";
 import { useSelector } from "react-redux";
 

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { checkAnswer } from "../api/user";
+import { checkAnswer } from "../api/user_api";
 
 const QUESTION = [
   { id: 1, question: "어릴 때 살던 동네는?" },

@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { saveNewPassword } from "../api/user";
+import { saveNewPassword } from "../api/user_api";
 
 const SetPassword = () => {
   const nav = useNavigate();

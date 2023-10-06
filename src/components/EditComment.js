@@ -1,7 +1,7 @@
 /* eslint-disable */
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { handleEdit } from "../api/comment";
+import { handleEdit } from "../api/comment_api";
 
 const EditComment = ({ value, id, nickname }) => {
   useEffect(() => {

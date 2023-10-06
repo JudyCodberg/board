@@ -10,6 +10,7 @@ export const getComment = (id) => {
       }
     })
     .catch((err) => {
+      console.log(err);
       return false;
     });
 };

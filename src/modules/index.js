@@ -1,10 +1,18 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
-import board from "./board";
 import user from "./user";
+import { persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
 
-const rootReducer = combineReducers({ board, user });
+const rootReducer = combineReducers({ user });
 
-const store = createStore(rootReducer, applyMiddleware(thunk));
+const persistConfig = {
+  key: "root",
+  storage: storage,
+};
+
+const perReducer = persistReducer(persistConfig, rootReducer);
+
+const store = createStore(perReducer, applyMiddleware(thunk));
 
 export default store;

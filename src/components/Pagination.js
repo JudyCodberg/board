@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
 
 // 페이지 전체 개수 받아오기
@@ -30,14 +30,25 @@ const Pagination = ({ lastPage, pageNum, setPageNum }) => {
         {"<"}
       </PrevArrow>
       {array.slice(offset, offset + 10).map((item, idx) => (
-        <PageNumber
-          key={idx}
-          onClick={() => {
-            setPageNum(item);
-          }}
-        >
-          {item}
-        </PageNumber>
+        <Emptydiv key={idx}>
+          {pageNum === item ? (
+            <ActivePageNumber
+              onClick={() => {
+                setPageNum(item);
+              }}
+            >
+              {item}
+            </ActivePageNumber>
+          ) : (
+            <PageNumber
+              onClick={() => {
+                setPageNum(item);
+              }}
+            >
+              {item}
+            </PageNumber>
+          )}
+        </Emptydiv>
       ))}
       <NextArrow
         onClick={() => {
@@ -62,14 +73,21 @@ const Pagination = ({ lastPage, pageNum, setPageNum }) => {
 const PagingBox = styled.div`
   display: flex;
   justify-content: center;
-  gap: 0.5rem;
+  gap: 1rem;
   width: 100%;
+  margin: 1.5rem 0;
 `;
 const StartArrow = styled.span`
   cursor: pointer;
 `;
 const PrevArrow = styled.span`
   cursor: pointer;
+`;
+const Emptydiv = styled.div``;
+const ActivePageNumber = styled.span`
+  cursor: pointer;
+  color: blue;
+  font-weight: 600;
 `;
 const PageNumber = styled.span`
   cursor: pointer;
