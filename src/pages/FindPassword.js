@@ -26,7 +26,7 @@ const FindPassword = () => {
     const { id, question, answer } = userInputs;
     if (id.length !== 0 && question.length !== 0 && answer.length !== 0) {
       const result = await checkAnswer(id, question, answer, nav);
-      if (result === false) return alert("일치하는 정보가 없습니다");
+      if (result === false || result === undefined) return alert("일치하는 정보가 없습니다");
     }
     if (id.length === 0) return alert("아이디를 입력하세요");
     if (answer.length === 0) return alert("답변을 입력하세요");

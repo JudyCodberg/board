@@ -16,7 +16,6 @@ import api from "./index";
 //       alert("아이디 또는 비밀번호를 확인하세요");
 //     });
 // };
-
 export const checkId = (userId) => {
   return api
     .get(`user/checkId/${userId}`)
@@ -57,7 +56,7 @@ export const userJoin = (id, name, password, question, answer, nav) => {
     .then((res) => {
       if (res.status === 200) {
         alert("가입 완료");
-        nav("/board");
+        nav("/");
       }
     })
     .catch((err) => {

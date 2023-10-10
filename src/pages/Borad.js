@@ -12,6 +12,7 @@ const Borad = () => {
         <RightArea>
           <Button
             onClick={() => {
+              localStorage.removeItem("persist:root");
               nav("/");
             }}
           >

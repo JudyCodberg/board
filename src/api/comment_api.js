@@ -8,6 +8,7 @@ export const getComment = (id) => {
         const comment = res.data.data;
         return comment;
       }
+      return [];
     })
     .catch((err) => {
       console.log(err);

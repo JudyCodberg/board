@@ -22,12 +22,20 @@ const List = () => {
 
   const getListData = async () => {
     const result = await getPostAll(pageNum, SHOW_ARTICLE_NUM);
+    if (result === null || result === undefined) {
+      setListData([]);
+      return;
+    }
     setListData(result.searchData);
     setArticleNum(result.countNum);
   };
 
   const getSearchData = async () => {
     const result = await getSearchAll(pageNum, SHOW_ARTICLE_NUM, target, value);
+    if (result === null || result === undefined) {
+      setListData([]);
+      return;
+    }
     setListData(result.searchData);
     setArticleNum(result.countNum);
   };

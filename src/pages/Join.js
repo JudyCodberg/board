@@ -141,6 +141,7 @@ const Join = () => {
             </Button>
           </TitleBox>
           <InputBox
+            autoComplete="off"
             name="id"
             onChange={(e) => {
               userInputsHandler(e);
@@ -158,6 +159,7 @@ const Join = () => {
             </Button>
           </TitleBox>
           <InputBox
+            autoComplete="off"
             name="name"
             onChange={(e) => {
               userInputsHandler(e);
@@ -166,6 +168,7 @@ const Join = () => {
           <CheckResult>한글 또는 영문자 2~8자(자음만 입력 불가능)</CheckResult>
           <InputTitle>비밀번호</InputTitle>
           <InputPassword
+            autoComplete="off"
             type="password"
             maxLength={16}
             name="password"
@@ -185,6 +188,7 @@ const Join = () => {
           />
           <InputTitle>비밀번호 찾기 질문</InputTitle>
           <QuestionBox
+            autoComplete="off"
             name="question"
             onChange={(e) => {
               checkQnA(e);
@@ -197,6 +201,7 @@ const Join = () => {
             ))}
           </QuestionBox>
           <InputBox
+            autoComplete="off"
             name="answer"
             onChange={(e) => {
               checkQnA(e);

@@ -11,7 +11,6 @@ export const getPostAll = (pageNum, SHOW_ARTICLE_NUM) => {
       }
     })
     .catch((err) => {
-      console.log(err.response.data.message);
       console.log(err);
     });
 };

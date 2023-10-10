@@ -9,7 +9,7 @@ const Comments = (boardId) => {
   const id = boardId.boardId;
 
   const nickname = useSelector((state) => state.user.username);
-  console.log(nickname);
+  // console.log(nickname);
 
   const [data, setData] = useState([]);
   const [content, setContent] = useState("");

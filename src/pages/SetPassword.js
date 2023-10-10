@@ -55,6 +55,7 @@ const SetPassword = () => {
         <Wrapper>
           <InputTitle>새로운 비밀번호</InputTitle>
           <InputBox
+            type="password"
             name="password"
             onChange={(e) => {
               userInputsHandler(e);
@@ -64,6 +65,7 @@ const SetPassword = () => {
           <InputTitle>비밀번호 확인</InputTitle>
           <InputBox
             ref={checkRef}
+            type="password"
             name="checkPassword"
             onChange={(e) => {
               checkPwValidate(e);

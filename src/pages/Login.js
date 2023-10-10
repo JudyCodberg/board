@@ -24,12 +24,14 @@ const Login = () => {
         <Wrapper>
           <InputTitle>아이디</InputTitle>
           <InputId
+            autoComplete="off"
             onChange={(e) => {
               setUserId(e.target.value);
             }}
           />
           <InputTitle>비밀번호</InputTitle>
           <InputPassword
+            autoComplete="off"
             type="password"
             onChange={(e) => {
               setUserPw(e.target.value);
