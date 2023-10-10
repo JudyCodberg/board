@@ -1,10 +1,11 @@
 import axios from "axios";
+import api from "../api";
 
 const LOGIN = "login/LOGIN";
 
 export const login = (userId, userPw, nav) => {
   return async (dispatch, getState) => {
-    const user = await axios.post("/user/login", {
+    const user = await api.post("user/login", {
       id: userId,
       password: userPw,
     });
@@ -21,12 +22,12 @@ export const login = (userId, userPw, nav) => {
   };
 };
 
-const getKey = JSON.parse(localStorage.getItem("persist:root"));
+const getKey = JSON.parse(localStorage.getItem("persist:root")) || undefined;
 const init = {
   // 로컬스토리지에 값이 있으면 넣고 || 아니면 ""
-  username: getKey !== undefined ? JSON.parse(getKey.user).username : "",
-  userId: getKey !== undefined ? JSON.parse(getKey.user).userId : "",
-  token: getKey !== undefined ? JSON.parse(getKey.user).token : "",
+  username: getKey !== undefined ? JSON.parse(getKey?.user)?.username : "",
+  userId: getKey !== undefined ? JSON.parse(getKey?.user)?.userId : "",
+  token: getKey !== undefined ? JSON.parse(getKey?.user)?.token : "",
 };
 
 export default function user(state = init, action) {
