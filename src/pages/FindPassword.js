@@ -24,6 +24,7 @@ const FindPassword = () => {
 
   const submitInfo = async () => {
     const { id, question, answer } = userInputs;
+    // TODO 일치하지 않는 내용 어떤건지 알려주도록 수정
     if (id.length !== 0 && question.length !== 0 && answer.length !== 0) {
       const result = await checkAnswer(id, question, answer, nav);
       if (result === false || result === undefined) return alert("일치하는 정보가 없습니다");

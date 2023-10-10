@@ -44,6 +44,7 @@ const List = () => {
   const { target, value } = searchValue;
 
   const submitSearch = () => {
+    setPageNum(1);
     getSearchData();
   };
 
