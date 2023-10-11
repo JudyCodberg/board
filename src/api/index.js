@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://judy-board.s3-website.ap-northeast-2.amazonaws.com/";
+const BASE_URL = "http://52.79.44.212:3000/";
 const api = axios.create({
   baseURL: BASE_URL,
   headers: {
