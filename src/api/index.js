@@ -5,7 +5,7 @@ const api = axios.create({
   baseURL: BASE_URL,
   headers: {
     // "Access-Control-Allow-Origin": "http://localhost:3000",
-    "Access-Control-Allow-Origin": "http://judy-board.s3-website.ap-northeast-2.amazonaws.com/",
+    // "Access-Control-Allow-Origin": "http://judy-board.s3-website.ap-northeast-2.amazonaws.com/",
     "Access-Control-Allow-Credentials": "true",
   },
 });
