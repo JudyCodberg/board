@@ -47,7 +47,7 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://judy-board.s3-website.ap-northeast-2.amazonaws.com/",
+  "proxy": "http://52.79.44.212:3000/",
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11"
   }
