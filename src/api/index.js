@@ -1,13 +1,13 @@
 import axios from "axios";
 
-// axios.defaults.baseURL = "http://52.79.44.212:8000";
+axios.defaults.baseURL = "http://52.79.44.212:8000";
 const api = axios.create({
   baseURL: "http://52.79.44.212:8000",
   headers: {
     // "Access-Control-Allow-Origin": "http://localhost:3000",
     // "Access-Control-Allow-Origin": "http://judy-board.s3-website.ap-northeast-2.amazonaws.com",
     "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Credentials": "false",
+    "Access-Control-Allow-Credentials": "true",
   },
 });
 
