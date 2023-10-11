@@ -7,7 +7,6 @@ const api = axios.create({
     // "Access-Control-Allow-Origin": "http://localhost:3000",
     // "Access-Control-Allow-Origin": "http://judy-board.s3-website.ap-northeast-2.amazonaws.com",
     "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Credentials": "true",
   },
 });
 
@@ -16,7 +15,7 @@ api.interceptors.request.use(
     const persistRootValue = JSON.parse(localStorage.getItem("persist:root"));
     const userJSON = JSON.parse(persistRootValue.user);
     const token = userJSON.token;
-
+    console.log(token);
     if (token) {
       config.headers.Authorization = `${token}`;
     }
