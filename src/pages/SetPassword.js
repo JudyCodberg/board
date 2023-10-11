@@ -16,7 +16,6 @@ const SetPassword = () => {
   const [checkSame, setCheckSame] = useState(false);
 
   const userInputsHandler = (e) => {
-    // TODO 비밀번호 정규식 2-3가지 조건만 포함하도록 수정
     const regExp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}/;
     const inputs = e.target.value;
     const test = regExp.test(inputs);
