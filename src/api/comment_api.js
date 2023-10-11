@@ -25,7 +25,7 @@ export const writeContent = (id, content, nickname) => {
     })
     .then((res) => {
       if (res.status === 200) {
-        window.location.reload();
+        return window.location.reload();
       }
     })
     .catch((err) => {
@@ -39,7 +39,7 @@ export const handleDelete = (id) => {
     .then((res) => {
       if (res.status === 200) {
         window.location.reload();
-        alert("삭제되었습니다");
+        return alert("삭제되었습니다");
       }
     })
     .catch((err) => alert("삭제 실패"));
@@ -54,8 +54,8 @@ export const handleEdit = (contentData, id, nickname) => {
     })
     .then((res) => {
       if (res.status === 200) {
-        alert("수정되었습니다");
         window.location.reload();
+        return alert("수정되었습니다");
       }
     })
     .catch((err) => err);

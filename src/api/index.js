@@ -15,14 +15,12 @@ api.interceptors.request.use(
     const persistRootValue = JSON.parse(localStorage.getItem("persist:root"));
     const userJSON = JSON.parse(persistRootValue.user);
     const token = userJSON.token;
-    console.log(token);
     if (token) {
       config.headers.Authorization = `${token}`;
     }
     return config;
   },
   function (err) {
-    console.log(err);
     return err;
   }
 );
