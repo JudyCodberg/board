@@ -35,7 +35,7 @@ const Join = () => {
   // 정규식
   const regs = {
     id: /^[a-z]+[a-z0-9]{5,19}$/,
-    password: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}/,
+    password: /^(?=.*[a-zA-Z])(?=.*[0-9]).{8,25}$/,
     name: /^[가-힣a-zA-Z]{2,8}$/,
   };
   const checkValidate = (regExp, value) => regExp.test(value);
@@ -137,12 +137,13 @@ const Join = () => {
                 checkIdValidate(userInputs.id);
               }}
             >
-              중복확인
+              {userValidate.checkOverlapId ? "확인완료" : "중복확인"}
             </Button>
           </TitleBox>
-          <InputBox
+          <InputIdBox
             autoComplete="off"
             name="id"
+            maxLength={20}
             onChange={(e) => {
               userInputsHandler(e);
             }}
@@ -155,12 +156,13 @@ const Join = () => {
                 checkNameValidate(userInputs.name);
               }}
             >
-              중복확인
+              {userValidate.checkOverlapName ? "확인완료" : "중복확인"}
             </Button>
           </TitleBox>
-          <InputBox
+          <InputPwBox
             autoComplete="off"
             name="name"
+            maxLength={8}
             onChange={(e) => {
               userInputsHandler(e);
             }}
@@ -170,18 +172,18 @@ const Join = () => {
           <InputPassword
             autoComplete="off"
             type="password"
-            maxLength={16}
+            maxLength={25}
             name="password"
             onChange={(e) => {
               userInputsHandler(e);
             }}
           />
-          <CheckResult>대문자/소문자/숫자/특수문자 반드시 하나 이상 포함(최소 8자)</CheckResult>
+          <CheckResult>영문, 숫자 1개 이상 포함(최소 8자)</CheckResult>
           <InputTitle>비밀번호 확인</InputTitle>
           <CheckPassword
             ref={pwRef}
             type="password"
-            maxLength={16}
+            maxLength={25}
             onChange={(e) => {
               checkPwValidate(e.target.value);
             }}
@@ -200,7 +202,7 @@ const Join = () => {
               </QuestionTitle>
             ))}
           </QuestionBox>
-          <InputBox
+          <InputIdBox
             autoComplete="off"
             name="answer"
             onChange={(e) => {
@@ -268,7 +270,12 @@ const TitleBox = styled.div`
 const InputTitle = styled.p`
   margin: 0.25rem 0;
 `;
-const InputBox = styled.input`
+const InputIdBox = styled.input`
+  width: 100%;
+  height: 1.5rem;
+  font-family: Pretendard;
+`;
+const InputPwBox = styled.input`
   width: 100%;
   height: 1.5rem;
   font-family: Pretendard;

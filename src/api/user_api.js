@@ -23,9 +23,13 @@ export const checkId = (userId) => {
       if (res.status === 200) {
         return true;
       }
+      if (res.response.status === 400) {
+        alert("중복된 아이디입니다");
+        return false;
+      }
     })
     .catch((err) => {
-      alert("중복된 아이디입니다");
+      alert("유효하지 않은 아이디입니다");
       return false;
     });
 };
@@ -37,9 +41,13 @@ export const checkName = (userName) => {
       if (res.status === 200) {
         return true;
       }
+      if (res.response.status === 400) {
+        alert("중복된 닉네임입니다");
+        return false;
+      }
     })
     .catch((err) => {
-      alert("중복된 닉네임입니다");
+      alert("유효하지 않은 닉네임입니다");
       return false;
     });
 };

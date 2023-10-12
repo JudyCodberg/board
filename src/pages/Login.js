@@ -24,6 +24,7 @@ const Login = () => {
         <Wrapper>
           <InputTitle>아이디</InputTitle>
           <InputId
+            maxLength={20}
             autoComplete="off"
             onChange={(e) => {
               setUserId(e.target.value);
@@ -31,6 +32,7 @@ const Login = () => {
           />
           <InputTitle>비밀번호</InputTitle>
           <InputPassword
+            maxLength={25}
             autoComplete="off"
             type="password"
             onChange={(e) => {

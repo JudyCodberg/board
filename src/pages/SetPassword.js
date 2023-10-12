@@ -16,7 +16,7 @@ const SetPassword = () => {
   const [checkSame, setCheckSame] = useState(false);
 
   const userInputsHandler = (e) => {
-    const regExp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}/;
+    const regExp = /^(?=.*[a-zA-Z])(?=.*[0-9]).{8,25}$/;
     const inputs = e.target.value;
     const test = regExp.test(inputs);
     if (test === true) {
@@ -61,7 +61,7 @@ const SetPassword = () => {
               userInputsHandler(e);
             }}
           />
-          <CheckResult>대문자/소문자/숫자/특수문자 반드시 하나 이상 포함(최소 8자)</CheckResult>
+          <CheckResult>영문, 숫자 1개 이상 포함(최소 8자)</CheckResult>
           <InputTitle>비밀번호 확인</InputTitle>
           <InputBox
             ref={checkRef}
@@ -115,7 +115,7 @@ const InputTitle = styled.p`
 const InputBox = styled.input`
   width: 100%;
   height: 1.5rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
   font-family: Pretendard;
 `;
 const ButtonBox = styled.div`
