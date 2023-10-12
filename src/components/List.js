@@ -63,26 +63,36 @@ const List = () => {
         ))}
       </ListHeader>
       <ListBody>
-        {listData.map((item, idx) => (
-          <Lists key={idx}>
-            <ListRows key={item.board_id} color={idx % 2 == 0 ? 1 : 0}>
-              <ListItems>{item.board_id}</ListItems>
-              <ListItemsTitle
-                onClick={() => {
-                  getDetail(item.board_id, nav);
-                }}
-              >
-                {item.title}
-                <CountComment>{item.comment_count !== 0 ? `(${item.comment_count})` : ""}</CountComment>
-              </ListItemsTitle>
-              <ListItems>{item.hits}</ListItems>
-              <ListItems>{item.writer}</ListItems>
-              <ListItems>{item.createdAt.slice(0, 10)}</ListItems>
-            </ListRows>
-          </Lists>
-        ))}
+        {listData.length !== 0 ? (
+          <>
+            {listData?.map((item, idx) => (
+              <Lists key={idx}>
+                <ListRows key={item.board_id} color={idx % 2 == 0 ? 1 : 0}>
+                  <ListItems>{item.board_id}</ListItems>
+                  <ListItemsTitle
+                    onClick={() => {
+                      getDetail(item.board_id, nav);
+                    }}
+                  >
+                    {item.title}
+                    <CountComment>{item.comment_count !== 0 ? `(${item.comment_count})` : ""}</CountComment>
+                  </ListItemsTitle>
+                  <ListItems>{item.hits}</ListItems>
+                  <ListItems>{item.writer}</ListItems>
+                  <ListItems>{item.createdAt.slice(0, 10)}</ListItems>
+                </ListRows>
+              </Lists>
+            ))}
+          </>
+        ) : (
+          <EmptyList>{"불러올 글이 없습니다"}</EmptyList>
+        )}
       </ListBody>
-      <Pagination lastPage={lastPage} pageNum={pageNum} setPageNum={setPageNum} countNum={SHOW_ARTICLE_NUM} />
+      {listData.length !== 0 ? (
+        <Pagination lastPage={lastPage} pageNum={pageNum} setPageNum={setPageNum} countNum={SHOW_ARTICLE_NUM} />
+      ) : (
+        <></>
+      )}
       <Search
         countNum={SHOW_ARTICLE_NUM}
         setSearchValue={setSearchValue}
@@ -135,5 +145,10 @@ const ListItemsTitle = styled.div`
 `;
 const CountComment = styled.span`
   color: gray;
+`;
+const EmptyList = styled.div`
+  width: 100%;
+  padding: 2rem 0;
+  text-align: center;
 `;
 export default List;

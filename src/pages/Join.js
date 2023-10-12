@@ -13,6 +13,7 @@ const Join = () => {
   const pwRef = useRef();
   const nav = useNavigate();
 
+  const [isClicked, setClicked] = useState(false);
   const [userValidate, setUserValidate] = useState({
     id: false,
     name: false,
@@ -93,7 +94,7 @@ const Join = () => {
         pwRef.current.style.border = "1px solid black";
         result = true;
       } else {
-        pwRef.current.style.border = "2px solid red";
+        pwRef.current.style.border = "1px solid red";
         result = false;
       }
       setUserValidate({ ...userValidate, checkOverlapPw: result });
@@ -112,6 +113,7 @@ const Join = () => {
 
   // 가입하기 눌렀을 때
   const submitJoin = () => {
+    setClicked(true);
     const { id, name, password, question, answer } = userInputs;
     if (userValidate.checkOverlapId === false || userValidate.checkOverlapName === false)
       return alert("중복 검사는 필수입니다");
@@ -136,40 +138,53 @@ const Join = () => {
               onClick={() => {
                 checkIdValidate(userInputs.id);
               }}
+              style={userValidate.checkOverlapId === false ? {} : { backgroundColor: "green", color: "white" }}
             >
               {userValidate.checkOverlapId ? "확인완료" : "중복확인"}
             </Button>
           </TitleBox>
           <InputIdBox
+            placeholder="영어로 시작, 영어 및 숫자 6~20자"
             autoComplete="off"
             name="id"
             maxLength={20}
             onChange={(e) => {
               userInputsHandler(e);
             }}
+            style={
+              isClicked === true && userValidate.checkOverlapId === false
+                ? { border: "1px solid red" }
+                : { border: "1px solid black" }
+            }
           />
-          <CheckResult>영어로 시작, 영어 및 숫자 6~20자</CheckResult>
           <TitleBox>
             <InputTitle>닉네임</InputTitle>
             <Button
               onClick={() => {
                 checkNameValidate(userInputs.name);
               }}
+              style={userValidate.checkOverlapName === false ? {} : { backgroundColor: "green", color: "white" }}
             >
               {userValidate.checkOverlapName ? "확인완료" : "중복확인"}
             </Button>
           </TitleBox>
           <InputPwBox
+            placeholder="한글 또는 영문자 2~8자(자음만 입력 불가능)"
             autoComplete="off"
             name="name"
             maxLength={8}
             onChange={(e) => {
               userInputsHandler(e);
             }}
+            style={
+              isClicked === true && userValidate.checkOverlapName === false
+                ? { border: "1px solid red" }
+                : { border: "1px solid black" }
+            }
           />
-          <CheckResult>한글 또는 영문자 2~8자(자음만 입력 불가능)</CheckResult>
           <InputTitle>비밀번호</InputTitle>
           <InputPassword
+            placeholder="영문, 숫자 1개 이상 포함(최소 8자)"
             autoComplete="off"
             type="password"
             maxLength={25}
@@ -177,8 +192,12 @@ const Join = () => {
             onChange={(e) => {
               userInputsHandler(e);
             }}
+            style={
+              isClicked === true && userValidate.password === false
+                ? { border: "1px solid red" }
+                : { border: "1px solid black" }
+            }
           />
-          <CheckResult>영문, 숫자 1개 이상 포함(최소 8자)</CheckResult>
           <InputTitle>비밀번호 확인</InputTitle>
           <CheckPassword
             ref={pwRef}
@@ -187,28 +206,40 @@ const Join = () => {
             onChange={(e) => {
               checkPwValidate(e.target.value);
             }}
+            style={
+              isClicked === true && userValidate.checkOverlapPw === false
+                ? { border: "1px solid red" }
+                : { border: "1px solid black" }
+            }
           />
-          <InputTitle>비밀번호 찾기 질문</InputTitle>
-          <QuestionBox
-            autoComplete="off"
-            name="question"
-            onChange={(e) => {
-              checkQnA(e);
-            }}
-          >
-            {QUESTION.map((item) => (
-              <QuestionTitle key={item.id} value={item.id}>
-                {item.question}
-              </QuestionTitle>
-            ))}
-          </QuestionBox>
-          <InputIdBox
-            autoComplete="off"
-            name="answer"
-            onChange={(e) => {
-              checkQnA(e);
-            }}
-          />
+          <SelectContainer>
+            <InputTitle>비밀번호 찾기 질문</InputTitle>
+            <QuestionBox
+              autoComplete="off"
+              name="question"
+              onChange={(e) => {
+                checkQnA(e);
+              }}
+            >
+              {QUESTION.map((item) => (
+                <QuestionTitle key={item.id} value={item.id}>
+                  {item.question}
+                </QuestionTitle>
+              ))}
+            </QuestionBox>
+            <InputIdBox
+              autoComplete="off"
+              name="answer"
+              onChange={(e) => {
+                checkQnA(e);
+              }}
+              style={
+                isClicked === true && userValidate.answer === false
+                  ? { border: "1px solid red" }
+                  : { border: "1px solid black" }
+              }
+            />
+          </SelectContainer>
         </Wrapper>
         <Button
           onClick={() => {
@@ -274,27 +305,32 @@ const InputIdBox = styled.input`
   width: 100%;
   height: 1.5rem;
   font-family: Pretendard;
+  font-size: 0.75rem;
 `;
 const InputPwBox = styled.input`
   width: 100%;
   height: 1.5rem;
   font-family: Pretendard;
+  font-size: 0.75rem;
 `;
 const InputPassword = styled.input`
   width: 100%;
   height: 1.5rem;
   font-family: Pretendard;
+  font-size: 0.75rem;
 `;
 const CheckPassword = styled.input`
   width: 100%;
   height: 1.5rem;
   font-family: Pretendard;
 `;
-const CheckResult = styled.p`
-  font-size: 0.75rem;
-  padding-bottom: 0.5rem;
+const SelectContainer = styled.div`
+  box-sizing: border-box;
 `;
-const QuestionBox = styled.select``;
+const QuestionBox = styled.select`
+  width: 102%;
+  margin-bottom: 0.5rem;
+`;
 const QuestionTitle = styled.option``;
 
 export default Join;

@@ -18,7 +18,7 @@ const Pagination = ({ lastPage, pageNum, setPageNum }) => {
           setPageNum(1);
         }}
       >
-        {"<<"}
+        {pageNum === 1 ? "" : "<<"}
       </StartArrow>
       <PrevArrow
         onClick={() => {
@@ -27,7 +27,7 @@ const Pagination = ({ lastPage, pageNum, setPageNum }) => {
           }
         }}
       >
-        {"<"}
+        {pageNum === 1 ? "" : "<"}
       </PrevArrow>
       {array.slice(offset, offset + 10).map((item, idx) => (
         <Emptydiv key={idx}>
@@ -57,14 +57,14 @@ const Pagination = ({ lastPage, pageNum, setPageNum }) => {
           }
         }}
       >
-        {">"}
+        {pageNum === lastPage ? "" : ">"}
       </NextArrow>
       <LastArrow
         onClick={() => {
           setPageNum(lastPage);
         }}
       >
-        {">>"}
+        {pageNum === lastPage ? "" : ">>"}
       </LastArrow>
     </PagingBox>
   );
