@@ -128,6 +128,12 @@ const ArticleDetails = styled.div`
   font-size: 0.75rem;
 `;
 const PageTitle = styled.input`
+  overflow: hidden;
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  word-break: break-all;
   font-weight: 700;
   font-size: 2rem;
 `;
@@ -135,6 +141,7 @@ const ContentArea = styled.textarea`
   width: 70%;
   height: 70%;
   padding: 1rem;
+  box-sizing: border-box;
   border: 1px solid black;
   line-height: 1.25rem;
   resize: none;

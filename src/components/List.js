@@ -74,7 +74,7 @@ const List = () => {
                 }}
               >
                 {item.title}
-                {item.comment_count !== 0 ? `(${item.comment_count})` : ""}
+                <CountComment>{item.comment_count !== 0 ? `(${item.comment_count})` : ""}</CountComment>
               </ListItemsTitle>
               <ListItems>{item.hits}</ListItems>
               <ListItems>{item.writer}</ListItems>
@@ -99,6 +99,9 @@ const ListWrap = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  @media screen and (max-width: 500px) {
+    font-size: 0.85rem;
+  }
 `;
 const ListHeader = styled.ul`
   width: 100%;
@@ -130,5 +133,8 @@ const ListItemsTitle = styled.div`
   white-space: nowrap;
   text-overflow: ellipsis;
   word-break: break-all;
+`;
+const CountComment = styled.span`
+  color: gray;
 `;
 export default List;

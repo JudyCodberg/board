@@ -73,29 +73,51 @@ const Pagination = ({ lastPage, pageNum, setPageNum }) => {
 const PagingBox = styled.div`
   display: flex;
   justify-content: center;
+  align-items: center;
   gap: 1rem;
   width: 100%;
   margin: 1.5rem 0;
+  @media screen and (max-width: 500px) {
+    gap: 0.5rem;
+  }
 `;
 const StartArrow = styled.span`
   cursor: pointer;
+  @media screen and (max-width: 500px) {
+    font-size: 0.75rem;
+  }
 `;
 const PrevArrow = styled.span`
   cursor: pointer;
+  @media screen and (max-width: 500px) {
+    font-size: 0.75rem;
+  }
 `;
 const Emptydiv = styled.div``;
 const ActivePageNumber = styled.span`
   cursor: pointer;
   color: blue;
   font-weight: 600;
+  @media screen and (max-width: 500px) {
+    font-size: 0.75rem;
+  }
 `;
 const PageNumber = styled.span`
   cursor: pointer;
+  @media screen and (max-width: 500px) {
+    font-size: 0.75rem;
+  }
 `;
 const NextArrow = styled.span`
   cursor: pointer;
+  @media screen and (max-width: 500px) {
+    font-size: 0.75rem;
+  }
 `;
 const LastArrow = styled.span`
   cursor: pointer;
+  @media screen and (max-width: 500px) {
+    font-size: 0.75rem;
+  }
 `;
 export default Pagination;

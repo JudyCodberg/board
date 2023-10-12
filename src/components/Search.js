@@ -43,9 +43,23 @@ const Search = ({ submitSearch, searchValue, setSearchValue }) => {
   );
 };
 
-const SearchBox = styled.div``;
+const SearchBox = styled.div`
+  margin-bottom: 0.5rem;
+  @media screen and (max-width: 500px) {
+    display: flex;
+    height: 1.5rem;
+  }
+`;
 const SearchInput = styled.input``;
-const SearchButton = styled.button``;
-const SelectBox = styled.select``;
+const SearchButton = styled.button`
+  @media screen and (max-width: 500px) {
+    font-size: 0.5rem;
+  }
+`;
+const SelectBox = styled.select`
+  @media screen and (max-width: 500px) {
+    font-size: 0.5rem;
+  }
+`;
 const SearchOptions = styled.option``;
 export default Search;
