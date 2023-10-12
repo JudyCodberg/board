@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { getPostAll, getSearchAll, getDetail } from "../api/board_api";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Pagination from "./Pagination";
 import Search from "./Search";
 
@@ -11,7 +11,6 @@ const SHOW_ARTICLE_NUM = 10;
 const boardTitles = ["번호", "제목", "조회수", "작성자", "작성일"];
 const List = () => {
   const nav = useNavigate();
-
   const [listData, setListData] = useState([]);
   const [articleNum, setArticleNum] = useState(0);
   const [pageNum, setPageNum] = useState(1);

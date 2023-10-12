@@ -104,11 +104,15 @@ const PageTitle = styled.p`
 `;
 const WriteTitleArea = styled.input`
   width: 70%;
+  padding: 0.75rem;
+  box-sizing: border-box;
   border: 1px solid black;
 `;
 const WriteContentArea = styled.textarea`
   width: 70%;
   height: 70%;
+  padding: 0.75rem;
+  box-sizing: border-box;
   border: 1px solid black;
   resize: none;
 `;

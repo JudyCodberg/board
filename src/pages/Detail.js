@@ -10,7 +10,8 @@ const Detail = () => {
   const nav = useNavigate();
   const location = useLocation();
 
-  const data = location.state.data;
+  const state = location.state;
+  const data = state ? location.state.data : Number(location.pathname.substring(7));
   const boardId = data.board_id;
 
   const [isDate, setIsDate] = useState("");
@@ -23,6 +24,13 @@ const Detail = () => {
 
   return (
     <PageContainer>
+      <BackBtn
+        onClick={() => {
+          nav("/board");
+        }}
+      >
+        {"<< 목록으로"}
+      </BackBtn>
       <PageHeader>
         <PageTitle>{data.title}</PageTitle>
       </PageHeader>
@@ -59,6 +67,11 @@ const Detail = () => {
     </PageContainer>
   );
 };
+const BackBtn = styled.div`
+  cursor: pointer;
+  width: 70%;
+  font-size: 0.75rem;
+`;
 const Button = styled.div`
   cursor: pointer;
   width: fit-content;

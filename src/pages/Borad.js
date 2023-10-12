@@ -2,11 +2,14 @@ import React from "react";
 import styled from "styled-components";
 import List from "../components/List";
 import { Link, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Borad = () => {
   const nav = useNavigate();
+  const username = useSelector((user) => user.user.username);
   return (
     <PageContainer>
+      <UserInfo>{`${username}님 안녕하세요!`}</UserInfo>
       <TitlerArea>
         <PageTitle>게시판</PageTitle>
         <RightArea>
@@ -29,6 +32,12 @@ const Borad = () => {
     </PageContainer>
   );
 };
+
+const UserInfo = styled.p`
+  width: 70%;
+  text-align: right;
+  font-size: 0.85rem;
+`;
 const Button = styled.div`
   cursor: pointer;
   width: fit-content;
@@ -63,7 +72,7 @@ const RightArea = styled.div`
   gap: 0.5rem;
 `;
 const PageTitle = styled.p`
-  margin: 1rem 0;
+  margin-bottom: 1rem;
   font-weight: 700;
   font-size: 2rem;
 `;

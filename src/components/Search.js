@@ -44,19 +44,29 @@ const Search = ({ submitSearch, searchValue, setSearchValue }) => {
 };
 
 const SearchBox = styled.div`
-  margin-bottom: 0.5rem;
+  box-sizing: border-box;
+  border: 1px solid black;
+  background-color: transparent;
   @media screen and (max-width: 500px) {
     display: flex;
-    height: 1.5rem;
   }
 `;
-const SearchInput = styled.input``;
+const SearchInput = styled.input`
+  width: 15rem;
+  padding: 0 0.5rem;
+  border: none;
+`;
 const SearchButton = styled.button`
+  cursor: pointer;
+  border: none;
+  padding: 0.5rem;
   @media screen and (max-width: 500px) {
     font-size: 0.5rem;
   }
 `;
 const SelectBox = styled.select`
+  border: none;
+  padding: 0 0.5rem;
   @media screen and (max-width: 500px) {
     font-size: 0.5rem;
   }

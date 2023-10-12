@@ -4,17 +4,14 @@ axios.defaults.baseURL = "http://52.79.44.212:8000";
 const api = axios.create({
   baseURL: "http://52.79.44.212:8000",
   headers: {
-    // "Access-Control-Allow-Origin": "http://localhost:3000",
-    // "Access-Control-Allow-Origin": "http://judy-board.s3-website.ap-northeast-2.amazonaws.com",
     "Access-Control-Allow-Origin": "*",
   },
 });
 
 api.interceptors.request.use(
   function (config) {
-    const persistRootValue = JSON.parse(localStorage.getItem("persist:root"));
-    const userJSON = JSON.parse(persistRootValue.user);
-    const token = userJSON.token;
+    const getKey = localStorage.getItem("persist:root");
+    const token = getKey ? JSON.parse(JSON.parse(getKey)?.user)?.token : "";
     if (token) {
       config.headers.Authorization = `${token}`;
     }
