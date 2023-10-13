@@ -11,7 +11,7 @@ const Borad = () => {
     <PageContainer>
       <UserInfo>{`${username}님 안녕하세요!`}</UserInfo>
       <TitlerArea>
-        <PageTitle>게시판</PageTitle>
+        <PageTitle onClick={() => window.location.reload()}>게시판</PageTitle>
         <RightArea>
           <Button
             onClick={() => {

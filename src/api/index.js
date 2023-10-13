@@ -18,6 +18,7 @@ api.interceptors.request.use(
     return config;
   },
   function (err) {
+    console.log(err);
     return err;
   }
 );
@@ -27,13 +28,15 @@ api.interceptors.response.use(
     return config;
   },
   function (err) {
-    if (err.response.status === 410) {
+    if (err?.response?.status === 400) {
+      return console.log(err);
+    }
+    if (err?.response?.status === 410) {
       alert("로그인이 만료되었습니다");
       window.location.assign("/");
       throw err.response.data.message;
-    } else {
-      return err;
     }
+    return console.log(err);
   }
 );
 export default api;

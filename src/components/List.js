@@ -1,9 +1,10 @@
 /* eslint-disable */
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { getPostAll, getSearchAll, getDetail } from "../api/board_api";
-import { useNavigate } from "react-router-dom";
+import { getPageNumber, getsearchNumber } from "../modules/board";
 import Pagination from "./Pagination";
 import Search from "./Search";
 
@@ -12,6 +13,7 @@ const SHOW_ARTICLE_NUM = 10;
 const boardTitles = ["번호", "제목", "조회수", "작성자", "작성일"];
 const List = () => {
   const nav = useNavigate();
+  const dispatch = useDispatch();
   const [listData, setListData] = useState([]);
   const [articleNum, setArticleNum] = useState(0);
   const [searchValue, setSearchValue] = useState({
@@ -20,6 +22,8 @@ const List = () => {
   });
 
   const pageNum = useSelector((state) => state.board.pageNum);
+  const targetHistory = useSelector((state) => state.board.target);
+  const valueHistory = useSelector((state) => state.board.value);
 
   const getListData = async () => {
     const result = await getPostAll(pageNum, SHOW_ARTICLE_NUM);
@@ -45,7 +49,8 @@ const List = () => {
   const { target, value } = searchValue;
 
   const submitSearch = () => {
-    // setPageNum(1);
+    dispatch(getPageNumber(1));
+    dispatch(getsearchNumber(pageNum, target, value));
     getSearchData();
   };
 
@@ -65,30 +70,24 @@ const List = () => {
         ))}
       </ListHeader>
       <ListBody>
-        {listData.length !== 0 || listData === undefined ? (
-          <>
-            {listData?.map((item, idx) => (
-              <Lists key={idx}>
-                <ListRows key={item.board_id} color={idx % 2 == 0 ? 1 : 0}>
-                  <ListItems>{item.board_id}</ListItems>
-                  <ListItemsTitle
-                    onClick={() => {
-                      getDetail(item.board_id, pageNum, SHOW_ARTICLE_NUM, target, value, nav);
-                    }}
-                  >
-                    {item.title}
-                    <CountComment>{item.comment_count !== 0 ? `(${item.comment_count})` : ""}</CountComment>
-                  </ListItemsTitle>
-                  <ListItems>{item.hits}</ListItems>
-                  <ListItems>{item.writer}</ListItems>
-                  <ListItems>{item.createdAt.slice(0, 10)}</ListItems>
-                </ListRows>
-              </Lists>
-            ))}
-          </>
-        ) : (
-          <EmptyList>{"불러올 글이 없습니다"}</EmptyList>
-        )}
+        {listData?.map((item, idx) => (
+          <Lists key={idx}>
+            <ListRows key={item.board_id} color={idx % 2 == 0 ? 1 : 0}>
+              <ListItems>{item.board_id}</ListItems>
+              <ListItemsTitle
+                onClick={() => {
+                  getDetail(item.board_id, pageNum, SHOW_ARTICLE_NUM, target, value, nav);
+                }}
+              >
+                {item.title}
+                <CountComment>{item.comment_count !== 0 ? `(${item.comment_count})` : ""}</CountComment>
+              </ListItemsTitle>
+              <ListItems>{item.hits}</ListItems>
+              <ListItems>{item.writer}</ListItems>
+              <ListItems>{item.createdAt.slice(0, 10)}</ListItems>
+            </ListRows>
+          </Lists>
+        ))}
       </ListBody>
       {listData.length !== 0 ? <Pagination lastPage={lastPage} countNum={SHOW_ARTICLE_NUM} /> : <></>}
       <Search

@@ -78,7 +78,7 @@ const PageContainer = styled.div`
   height: 100vh;
   font-family: Pretendard;
 `;
-const PageBox = styled.form`
+const PageBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;

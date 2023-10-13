@@ -5,7 +5,7 @@ import board from "./board";
 import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
-const rootReducer = combineReducers({ board, user });
+const rootReducer = combineReducers({ user, board });
 
 const persistConfig = {
   key: "root",

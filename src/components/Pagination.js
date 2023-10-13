@@ -1,14 +1,12 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
-import { getPageNumber } from "../modules/board";
+import { useDispatch, useSelector } from "react-redux";
+import { decrease, getPageNumber, increase } from "../modules/board";
 
 // 페이지 전체 개수 받아오기
 const Pagination = ({ lastPage }) => {
-  const location = useLocation();
   const dispatch = useDispatch();
-  const pageNum = 1;
+  const pageNum = useSelector((state) => state.board.pageNum);
 
   const array = [];
   for (let i = 0; i < lastPage; i++) {
@@ -21,18 +19,18 @@ const Pagination = ({ lastPage }) => {
   return (
     <PagingBox>
       <StartArrow
-      // onClick={() => {
-      //   1;
-      // }}
+        onClick={() => {
+          dispatch(getPageNumber(1));
+        }}
       >
         {pageNum === 1 ? "" : "<<"}
       </StartArrow>
       <PrevArrow
-      // onClick={() => {
-      //   if (pageNum > 1) {
-      //     pageNum - 1;
-      //   }
-      // }}
+        onClick={() => {
+          if (pageNum > 1) {
+            dispatch(decrease());
+          }
+        }}
       >
         {pageNum === 1 ? "" : "<"}
       </PrevArrow>
@@ -40,16 +38,16 @@ const Pagination = ({ lastPage }) => {
         <Emptydiv key={idx}>
           {pageNum === item ? (
             <ActivePageNumber
-            // onClick={() => {
-            //   item;
-            // }}
+              onClick={() => {
+                dispatch(getPageNumber(item));
+              }}
             >
               {item}
             </ActivePageNumber>
           ) : (
             <PageNumber
               onClick={() => {
-                dispatch(getPageNumber(item, 10, 0, ""));
+                dispatch(getPageNumber(item));
               }}
             >
               {item}
@@ -58,18 +56,18 @@ const Pagination = ({ lastPage }) => {
         </Emptydiv>
       ))}
       <NextArrow
-      // onClick={() => {
-      //   if (pageNum < lastPage) {
-      //     pageNum + 1;
-      //   }
-      // }}
+        onClick={() => {
+          if (pageNum < lastPage) {
+            dispatch(increase());
+          }
+        }}
       >
         {pageNum === lastPage ? "" : ">"}
       </NextArrow>
       <LastArrow
-      // onClick={() => {
-      //   lastPage;
-      // }}
+        onClick={() => {
+          dispatch(getPageNumber(lastPage));
+        }}
       >
         {pageNum === lastPage ? "" : ">>"}
       </LastArrow>

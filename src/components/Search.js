@@ -48,7 +48,7 @@ const Search = ({ submitSearch, searchValue, setSearchValue }) => {
   );
 };
 
-const SearchBox = styled.form`
+const SearchBox = styled.div`
   box-sizing: border-box;
   border: 1px solid black;
   background-color: transparent;

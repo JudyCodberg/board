@@ -14,7 +14,6 @@ export const login = (userId, userPw, nav) => {
       const username = user.data.data.username;
       dispatch({ type: LOGIN, payload: { username, token, userId } });
       nav("/board");
-      window.location.reload();
       return alert(`${username}님 환영합니다`);
     } catch (error) {
       alert("로그인 실패");
