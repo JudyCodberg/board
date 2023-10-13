@@ -2,6 +2,8 @@ const INCREASE_NUM = "board/INCREASE_NUM";
 const DRCREASE_NUM = "board/DRCREASE_NUM";
 const IS_PAGENUM = "board/IS_PAGENUM";
 const IS_SEARCHNUM = "board/IS_SEARCHNUM";
+const SEARCH_TARGET = "board/SEARCH_TARGET";
+const SEARCH_VALUE = "board/SEARCH_VALUE";
 
 export const increase = () => {
   return {
@@ -19,9 +21,18 @@ export const getPageNumber = (pageNum) => {
   return { type: IS_PAGENUM, payload: { pageNum } };
 };
 
+export const getsearchTarget = (target) => {
+  return { type: SEARCH_TARGET, payload: { target } };
+};
+
+export const getsearchValue = (value) => {
+  return { type: SEARCH_VALUE, payload: { value } };
+};
+
 export const getsearchNumber = (pageNum, target, value) => {
   return { type: IS_SEARCHNUM, payload: { pageNum, target, value } };
 };
+
 const init = {
   pageNum: 1,
   target: 0,
@@ -47,6 +58,20 @@ export default function board(state = init, action) {
       return {
         ...state,
         pageNum: payload?.pageNum,
+      };
+    }
+
+    case SEARCH_TARGET: {
+      return {
+        ...state,
+        target: payload?.target,
+      };
+    }
+
+    case SEARCH_VALUE: {
+      return {
+        ...state,
+        value: payload?.value,
       };
     }
 

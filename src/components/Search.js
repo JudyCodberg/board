@@ -1,15 +1,19 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import { getsearchTarget, getsearchValue } from "../modules/board";
 
-const Search = ({ submitSearch, searchValue, setSearchValue }) => {
+const Search = ({ submitSearch }) => {
+  const dispatch = useDispatch();
+
   const selectHandler = (e) => {
-    const { value, name } = e.target;
-    setSearchValue({ ...searchValue, [name]: value });
+    const { value } = e.target;
+    dispatch(getsearchTarget(value));
   };
 
   const inputHandler = (e) => {
-    const { value, name } = e.target;
-    setSearchValue({ ...searchValue, [name]: value });
+    const { value } = e.target;
+    dispatch(getsearchValue(value));
   };
 
   const handleOnKeyPress = (e) => {

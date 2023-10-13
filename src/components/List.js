@@ -16,14 +16,10 @@ const List = () => {
   const dispatch = useDispatch();
   const [listData, setListData] = useState([]);
   const [articleNum, setArticleNum] = useState(0);
-  const [searchValue, setSearchValue] = useState({
-    target: 0,
-    value: "",
-  });
 
   const pageNum = useSelector((state) => state.board.pageNum);
-  const targetHistory = useSelector((state) => state.board.target);
-  const valueHistory = useSelector((state) => state.board.value);
+  const target = useSelector((state) => state.board.target);
+  const value = useSelector((state) => state.board.value);
 
   const getListData = async () => {
     const result = await getPostAll(pageNum, SHOW_ARTICLE_NUM);
@@ -46,11 +42,9 @@ const List = () => {
   };
   const lastPage = Math.ceil(articleNum / SHOW_ARTICLE_NUM);
 
-  const { target, value } = searchValue;
-
   const submitSearch = () => {
     dispatch(getPageNumber(1));
-    dispatch(getsearchNumber(pageNum, target, value));
+    dispatch(getsearchNumber(1, target, value));
     getSearchData();
   };
 
@@ -90,12 +84,7 @@ const List = () => {
         ))}
       </ListBody>
       {listData.length !== 0 ? <Pagination lastPage={lastPage} countNum={SHOW_ARTICLE_NUM} /> : <></>}
-      <Search
-        countNum={SHOW_ARTICLE_NUM}
-        setSearchValue={setSearchValue}
-        searchValue={searchValue}
-        submitSearch={submitSearch}
-      />
+      <Search countNum={SHOW_ARTICLE_NUM} submitSearch={submitSearch} />
     </ListWrap>
   );
 };
