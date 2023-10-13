@@ -32,6 +32,12 @@ const FindPassword = () => {
     if (answer.length === 0) return alert("답변을 입력하세요");
   };
 
+  const handleOnKeyPress = (e) => {
+    if (e.key === "Enter") {
+      submitInfo();
+    }
+  };
+
   return (
     <PageContainer>
       <PageBox>
@@ -43,6 +49,7 @@ const FindPassword = () => {
             onChange={(e) => {
               userInputsHandler(e);
             }}
+            onKeyDown={handleOnKeyPress}
           />
           <InputTitle>질문</InputTitle>
           <QuestionBox
@@ -63,6 +70,7 @@ const FindPassword = () => {
             onChange={(e) => {
               userInputsHandler(e);
             }}
+            onKeyDown={handleOnKeyPress}
           />
         </Wrapper>
         <ButtonBox>
@@ -88,7 +96,7 @@ const PageContainer = styled.div`
   height: 100vh;
   font-family: Pretendard;
 `;
-const PageBox = styled.div`
+const PageBox = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;

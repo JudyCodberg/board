@@ -127,6 +127,12 @@ const Join = () => {
     if (isAllTrue) return userJoin(id, name, password, question, answer, nav);
   };
 
+  const handleOnKeyPress = (e) => {
+    if (e.key === "Enter") {
+      submitJoin();
+    }
+  };
+
   return (
     <PageContainer>
       <PageBox>
@@ -156,6 +162,7 @@ const Join = () => {
                 ? { border: "1px solid red" }
                 : { border: "1px solid black" }
             }
+            onKeyDown={handleOnKeyPress}
           />
           <TitleBox>
             <InputTitle>닉네임</InputTitle>
@@ -181,6 +188,7 @@ const Join = () => {
                 ? { border: "1px solid red" }
                 : { border: "1px solid black" }
             }
+            onKeyDown={handleOnKeyPress}
           />
           <InputTitle>비밀번호</InputTitle>
           <InputPassword
@@ -197,6 +205,7 @@ const Join = () => {
                 ? { border: "1px solid red" }
                 : { border: "1px solid black" }
             }
+            onKeyDown={handleOnKeyPress}
           />
           <InputTitle>비밀번호 확인</InputTitle>
           <CheckPassword
@@ -211,6 +220,7 @@ const Join = () => {
                 ? { border: "1px solid red" }
                 : { border: "1px solid black" }
             }
+            onKeyDown={handleOnKeyPress}
           />
           <SelectContainer>
             <InputTitle>비밀번호 찾기 질문</InputTitle>
@@ -238,6 +248,7 @@ const Join = () => {
                   ? { border: "1px solid red" }
                   : { border: "1px solid black" }
               }
+              onKeyDown={handleOnKeyPress}
             />
           </SelectContainer>
         </Wrapper>
@@ -286,7 +297,7 @@ const PageTitle = styled.p`
   font-weight: 700;
   font-size: 2rem;
 `;
-const Wrapper = styled.div`
+const Wrapper = styled.form`
   display: flex;
   flex-direction: column;
   gap: 0.25rem;

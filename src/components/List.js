@@ -1,8 +1,9 @@
 /* eslint-disable */
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { getPostAll, getSearchAll, getDetail } from "../api/board_api";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Pagination from "./Pagination";
 import Search from "./Search";
 
@@ -13,11 +14,12 @@ const List = () => {
   const nav = useNavigate();
   const [listData, setListData] = useState([]);
   const [articleNum, setArticleNum] = useState(0);
-  const [pageNum, setPageNum] = useState(1);
   const [searchValue, setSearchValue] = useState({
     target: 0,
     value: "",
   });
+
+  const pageNum = useSelector((state) => state.board.pageNum);
 
   const getListData = async () => {
     const result = await getPostAll(pageNum, SHOW_ARTICLE_NUM);
@@ -43,7 +45,7 @@ const List = () => {
   const { target, value } = searchValue;
 
   const submitSearch = () => {
-    setPageNum(1);
+    // setPageNum(1);
     getSearchData();
   };
 
@@ -63,7 +65,7 @@ const List = () => {
         ))}
       </ListHeader>
       <ListBody>
-        {listData.length !== 0 ? (
+        {listData.length !== 0 || listData === undefined ? (
           <>
             {listData?.map((item, idx) => (
               <Lists key={idx}>
@@ -71,7 +73,7 @@ const List = () => {
                   <ListItems>{item.board_id}</ListItems>
                   <ListItemsTitle
                     onClick={() => {
-                      getDetail(item.board_id, nav);
+                      getDetail(item.board_id, pageNum, SHOW_ARTICLE_NUM, target, value, nav);
                     }}
                   >
                     {item.title}
@@ -88,11 +90,7 @@ const List = () => {
           <EmptyList>{"불러올 글이 없습니다"}</EmptyList>
         )}
       </ListBody>
-      {listData.length !== 0 ? (
-        <Pagination lastPage={lastPage} pageNum={pageNum} setPageNum={setPageNum} countNum={SHOW_ARTICLE_NUM} />
-      ) : (
-        <></>
-      )}
+      {listData.length !== 0 ? <Pagination lastPage={lastPage} countNum={SHOW_ARTICLE_NUM} /> : <></>}
       <Search
         countNum={SHOW_ARTICLE_NUM}
         setSearchValue={setSearchValue}
@@ -134,7 +132,13 @@ const ListRows = styled.div`
   padding: 0.5rem 0;
   background-color: ${(props) => (props.color === 1 ? "#eee" : "transparent")};
 `;
-const ListItems = styled.div``;
+const ListItems = styled.div`
+  width: 90%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  word-break: break-all;
+`;
 const ListItemsTitle = styled.div`
   cursor: pointer;
   width: 90%;

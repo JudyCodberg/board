@@ -1,8 +1,15 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
 import styled from "styled-components";
+import { useDispatch } from "react-redux";
+import { getPageNumber } from "../modules/board";
 
 // 페이지 전체 개수 받아오기
-const Pagination = ({ lastPage, pageNum, setPageNum }) => {
+const Pagination = ({ lastPage }) => {
+  const location = useLocation();
+  const dispatch = useDispatch();
+  const pageNum = 1;
+
   const array = [];
   for (let i = 0; i < lastPage; i++) {
     array.push(i + 1);
@@ -14,18 +21,18 @@ const Pagination = ({ lastPage, pageNum, setPageNum }) => {
   return (
     <PagingBox>
       <StartArrow
-        onClick={() => {
-          setPageNum(1);
-        }}
+      // onClick={() => {
+      //   1;
+      // }}
       >
         {pageNum === 1 ? "" : "<<"}
       </StartArrow>
       <PrevArrow
-        onClick={() => {
-          if (pageNum > 1) {
-            setPageNum(pageNum - 1);
-          }
-        }}
+      // onClick={() => {
+      //   if (pageNum > 1) {
+      //     pageNum - 1;
+      //   }
+      // }}
       >
         {pageNum === 1 ? "" : "<"}
       </PrevArrow>
@@ -33,16 +40,16 @@ const Pagination = ({ lastPage, pageNum, setPageNum }) => {
         <Emptydiv key={idx}>
           {pageNum === item ? (
             <ActivePageNumber
-              onClick={() => {
-                setPageNum(item);
-              }}
+            // onClick={() => {
+            //   item;
+            // }}
             >
               {item}
             </ActivePageNumber>
           ) : (
             <PageNumber
               onClick={() => {
-                setPageNum(item);
+                dispatch(getPageNumber(item, 10, 0, ""));
               }}
             >
               {item}
@@ -51,18 +58,18 @@ const Pagination = ({ lastPage, pageNum, setPageNum }) => {
         </Emptydiv>
       ))}
       <NextArrow
-        onClick={() => {
-          if (pageNum < lastPage) {
-            setPageNum(pageNum + 1);
-          }
-        }}
+      // onClick={() => {
+      //   if (pageNum < lastPage) {
+      //     pageNum + 1;
+      //   }
+      // }}
       >
         {pageNum === lastPage ? "" : ">"}
       </NextArrow>
       <LastArrow
-        onClick={() => {
-          setPageNum(lastPage);
-        }}
+      // onClick={() => {
+      //   lastPage;
+      // }}
       >
         {pageNum === lastPage ? "" : ">>"}
       </LastArrow>
@@ -71,11 +78,12 @@ const Pagination = ({ lastPage, pageNum, setPageNum }) => {
 };
 
 const PagingBox = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(14, 1fr);
   justify-content: center;
   align-items: center;
   gap: 1rem;
-  width: 100%;
+  width: 70%;
   margin: 1.5rem 0;
   @media screen and (max-width: 500px) {
     gap: 0.5rem;
@@ -104,6 +112,7 @@ const ActivePageNumber = styled.span`
 `;
 const PageNumber = styled.span`
   cursor: pointer;
+
   @media screen and (max-width: 500px) {
     font-size: 0.75rem;
   }

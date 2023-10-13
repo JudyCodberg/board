@@ -31,8 +31,9 @@ api.interceptors.response.use(
       alert("로그인이 만료되었습니다");
       window.location.assign("/");
       throw err.response.data.message;
+    } else {
+      return err;
     }
-    return err;
   }
 );
 export default api;

@@ -1,10 +1,11 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import user from "./user";
+import board from "./board";
 import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
-const rootReducer = combineReducers({ user });
+const rootReducer = combineReducers({ board, user });
 
 const persistConfig = {
   key: "root",

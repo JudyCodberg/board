@@ -3,7 +3,7 @@ import api from "../api";
 const LOGIN = "login/LOGIN";
 
 export const login = (userId, userPw, nav) => {
-  return async (dispatch, getState) => {
+  return async (dispatch) => {
     const user = await api.post("user/login", {
       id: userId,
       password: userPw,

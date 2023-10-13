@@ -48,6 +48,12 @@ const SetPassword = () => {
     return alert("유효하지 않은 값입니다");
   };
 
+  const handleOnKeyPress = (e) => {
+    if (e.key === "Enter") {
+      submitInfo();
+    }
+  };
+
   return (
     <PageContainer>
       <PageBox>
@@ -60,6 +66,7 @@ const SetPassword = () => {
             onChange={(e) => {
               userInputsHandler(e);
             }}
+            onKeyDown={handleOnKeyPress}
           />
           <CheckResult>영문, 숫자 1개 이상 포함(최소 8자)</CheckResult>
           <InputTitle>비밀번호 확인</InputTitle>
@@ -70,6 +77,7 @@ const SetPassword = () => {
             onChange={(e) => {
               checkPwValidate(e);
             }}
+            onKeyDown={handleOnKeyPress}
           />
         </Wrapper>
         <ButtonBox>

@@ -12,6 +12,7 @@ export const getPostAll = (pageNum, SHOW_ARTICLE_NUM) => {
     })
     .catch((err) => {
       console.log(err);
+      alert("데이터가 존재하지 않습니다");
     });
 };
 
@@ -38,7 +39,7 @@ export const getSearchAll = (pageNum, SHOW_ARTICLE_NUM, target, value) => {
     });
 };
 
-export const getDetail = (id, nav) => {
+export const getDetail = (id, pageNum, SHOW_ARTICLE_NUM, target, value, nav) => {
   api
     .get(`board/list/${id}`, { params: { id: id } })
     .then((res) => {
@@ -46,6 +47,10 @@ export const getDetail = (id, nav) => {
       nav(`/board/${id}`, {
         state: {
           data: article,
+          pageNum: pageNum,
+          articleNum: SHOW_ARTICLE_NUM,
+          target: target,
+          value: value,
         },
       });
       return article;

@@ -13,10 +13,17 @@ const Login = () => {
   const [userPw, setUserPw] = useState("");
 
   const submitLogin = (userId, userPw, nav) => {
-    if (userId.trim().length === 0) return alert("아이디를 입력하세요");
-    if (userPw.trim().length === 0) return alert("비밀번호를 입력하세요");
+    if (userId?.trim().length === 0) return alert("아이디를 입력하세요");
+    if (userPw?.trim().length === 0) return alert("비밀번호를 입력하세요");
     dispatch(login(userId, userPw, nav));
   };
+
+  const handleOnKeyPress = (e) => {
+    if (e.key === "Enter") {
+      submitLogin(userId, userPw, nav);
+    }
+  };
+
   return (
     <PageContainer>
       <PageBox>
@@ -29,6 +36,7 @@ const Login = () => {
             onChange={(e) => {
               setUserId(e.target.value);
             }}
+            onKeyDown={handleOnKeyPress}
           />
           <InputTitle>비밀번호</InputTitle>
           <InputPassword
@@ -38,6 +46,7 @@ const Login = () => {
             onChange={(e) => {
               setUserPw(e.target.value);
             }}
+            onKeyDown={handleOnKeyPress}
           />
         </Wrapper>
         <ButtonBox>
@@ -69,7 +78,7 @@ const PageContainer = styled.div`
   height: 100vh;
   font-family: Pretendard;
 `;
-const PageBox = styled.div`
+const PageBox = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;

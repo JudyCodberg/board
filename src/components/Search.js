@@ -12,6 +12,12 @@ const Search = ({ submitSearch, searchValue, setSearchValue }) => {
     setSearchValue({ ...searchValue, [name]: value });
   };
 
+  const handleOnKeyPress = (e) => {
+    if (e.key === "Enter") {
+      submitSearch();
+    }
+  };
+
   return (
     <SearchBox>
       <SelectBox
@@ -29,6 +35,7 @@ const Search = ({ submitSearch, searchValue, setSearchValue }) => {
         onChange={(e) => {
           inputHandler(e);
         }}
+        onKeyDown={handleOnKeyPress}
       />
       <SearchButton
         onClick={() => {
@@ -41,7 +48,7 @@ const Search = ({ submitSearch, searchValue, setSearchValue }) => {
   );
 };
 
-const SearchBox = styled.div`
+const SearchBox = styled.form`
   box-sizing: border-box;
   border: 1px solid black;
   background-color: transparent;
