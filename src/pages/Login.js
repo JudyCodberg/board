@@ -16,9 +16,12 @@ const Login = () => {
     if (userPw?.trim().length === 0) return alert("비밀번호를 입력하세요");
     dispatch(login(userId, userPw))
       .then((res) => {
-        if (res.length !== 0) {
+        if (res.token.length !== 0 && res?.userId === userId) {
           nav("/board");
           window.location.reload();
+        } else {
+          alert("로그인 실패");
+          localStorage.removeItem("persist:root");
         }
       })
       .catch((err) => (err ? alert("로그인 에러") : ""));

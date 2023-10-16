@@ -13,9 +13,9 @@ export const login = (userId, userPw, nav) => {
       const userId = user.data.data.loginToken.id;
       const username = user.data.data.username;
       dispatch({ type: LOGIN, payload: { username, token, userId } });
-      return token;
+      return { token, userId };
     } catch (error) {
-      alert("로그인 실패");
+      return error;
     }
   };
 };
