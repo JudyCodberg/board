@@ -94,7 +94,6 @@ const Comments = (boardId) => {
           )}
         </CommentBox>
       ))}
-      <SeeMoreBtn>더보기(Click)</SeeMoreBtn>
     </CommentArea>
   );
 };
@@ -177,11 +176,5 @@ const SubmitButton = styled.div`
     color: white;
     background-color: gray;
   }
-`;
-
-const SeeMoreBtn = styled.div`
-  cursor: pointer;
-  text-decoration: underline;
-  font-weight: 700;
 `;
 export default Comments;

@@ -64,24 +64,31 @@ const List = () => {
         ))}
       </ListHeader>
       <ListBody>
-        {listData?.map((item, idx) => (
-          <Lists key={idx}>
-            <ListRows key={item.board_id} color={idx % 2 == 0 ? 1 : 0}>
-              <ListItems>{item.board_id}</ListItems>
-              <ListItemsTitle
-                onClick={() => {
-                  getDetail(item.board_id, pageNum, SHOW_ARTICLE_NUM, target, value, nav);
-                }}
-              >
-                {item.title}
-                <CountComment>{item.comment_count !== 0 ? `(${item.comment_count})` : ""}</CountComment>
-              </ListItemsTitle>
-              <ListItems>{item.hits}</ListItems>
-              <ListItems>{item.writer}</ListItems>
-              <ListItems>{item.createdAt.slice(0, 10)}</ListItems>
-            </ListRows>
-          </Lists>
-        ))}
+        {listData.length === 0 ? (
+          <EmptyList>{"데이터가 없습니다"}</EmptyList>
+        ) : (
+          <>
+            {" "}
+            {listData?.map((item, idx) => (
+              <Lists key={idx}>
+                <ListRows key={item.board_id} color={idx % 2 == 0 ? 1 : 0}>
+                  <ListItems>{item.board_id}</ListItems>
+                  <ListItemsTitle
+                    onClick={() => {
+                      getDetail(item.board_id, pageNum, SHOW_ARTICLE_NUM, target, value, nav);
+                    }}
+                  >
+                    {item.title}
+                    <CountComment>{item.comment_count !== 0 ? `(${item.comment_count})` : ""}</CountComment>
+                  </ListItemsTitle>
+                  <ListItems>{item.hits}</ListItems>
+                  <ListItems>{item.writer}</ListItems>
+                  <ListItems>{item.createdAt.slice(0, 10)}</ListItems>
+                </ListRows>
+              </Lists>
+            ))}
+          </>
+        )}
       </ListBody>
       {listData.length !== 0 ? <Pagination lastPage={lastPage} countNum={SHOW_ARTICLE_NUM} /> : <></>}
       <Search countNum={SHOW_ARTICLE_NUM} submitSearch={submitSearch} />
