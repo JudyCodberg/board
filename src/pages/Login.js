@@ -1,7 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-// import { userLogin } from "../api/user_api";
 import { useDispatch } from "react-redux";
 import { login } from "../modules/user";
 
@@ -12,10 +11,17 @@ const Login = () => {
   const [userId, setUserId] = useState("");
   const [userPw, setUserPw] = useState("");
 
-  const submitLogin = (userId, userPw, nav) => {
+  const submitLogin = (userId, userPw) => {
     if (userId?.trim().length === 0) return alert("아이디를 입력하세요");
     if (userPw?.trim().length === 0) return alert("비밀번호를 입력하세요");
-    dispatch(login(userId, userPw, nav));
+    dispatch(login(userId, userPw))
+      .then((res) => {
+        if (res.length !== 0) {
+          nav("/board");
+          window.location.reload();
+        }
+      })
+      .catch((err) => (err ? alert("로그인 에러") : ""));
   };
 
   const handleOnKeyPress = (e) => {

@@ -13,8 +13,7 @@ export const login = (userId, userPw, nav) => {
       const userId = user.data.data.loginToken.id;
       const username = user.data.data.username;
       dispatch({ type: LOGIN, payload: { username, token, userId } });
-      nav("/board");
-      return alert(`${username}님 환영합니다`);
+      return token;
     } catch (error) {
       alert("로그인 실패");
     }
