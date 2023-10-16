@@ -76,11 +76,10 @@ const Pagination = ({ lastPage }) => {
 };
 
 const PagingBox = styled.div`
-  display: grid;
-  grid-template-columns: repeat(14, 1fr);
+  display: flex;
   justify-content: center;
   align-items: center;
-  gap: 1rem;
+  gap: 0.75rem;
   width: 70%;
   margin: 1.5rem 0;
   @media screen and (max-width: 500px) {

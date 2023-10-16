@@ -44,12 +44,14 @@ export default function board(state = init, action) {
   switch (type) {
     case DRCREASE_NUM: {
       return {
+        ...state,
         pageNum: state.pageNum - 1,
       };
     }
 
     case INCREASE_NUM: {
       return {
+        ...state,
         pageNum: state.pageNum + 1,
       };
     }
@@ -62,6 +64,7 @@ export default function board(state = init, action) {
     }
 
     case SEARCH_TARGET: {
+      console.log(payload);
       return {
         ...state,
         target: payload?.target,

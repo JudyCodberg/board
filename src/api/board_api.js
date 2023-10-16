@@ -35,7 +35,6 @@ export const getSearchAll = (pageNum, SHOW_ARTICLE_NUM, target, value) => {
     })
     .catch((err) => {
       console.log(err);
-      alert("검색 결과가 없습니다");
     });
 };
 

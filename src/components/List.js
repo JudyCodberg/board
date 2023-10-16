@@ -49,7 +49,7 @@ const List = () => {
   };
 
   useEffect(() => {
-    if (target.length !== 0 && value.length !== 0) {
+    if (value !== undefined && value.length !== 0) {
       getSearchData();
     } else {
       getListData();
